@@ -7,15 +7,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "users") 
-public class User {
+@Table(name = "feeds") 
+/* Probably useless */
+public class Feed {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    private String email;
-    private String name;
-    private String password;
 
 }

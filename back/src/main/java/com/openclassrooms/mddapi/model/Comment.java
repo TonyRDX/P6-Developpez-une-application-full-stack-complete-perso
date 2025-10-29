@@ -12,20 +12,17 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "posts") 
-public class Post {
-
+@Table(name = "feeds") 
+public class Comment {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Topic topic;
     private User author;
-    private String title;
     private String content;
-    
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
-
 }
