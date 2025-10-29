@@ -1,0 +1,412 @@
+{
+	"info": {
+		"_postman_id": "37618528-e136-4ef6-87ec-1e4841f759b1",
+		"name": "P6 full-stack",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47883638",
+		"_collection_link": "https://tony-colas-s-team.postman.co/workspace/Team-Workspace~6bcab7c0-e599-4ae5-8458-d83fa0d78441/collection/47883638-37618528-e136-4ef6-87ec-1e4841f759b1?action=share&source=collection_link&creator=47883638"
+	},
+	"item": [
+		{
+			"name": "Get feed",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/feed",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"feed"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get feed",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "/feed",
+							"path": [
+								"feed"
+							]
+						}
+					},
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "[\r\n  {\r\n    \"id\": 42,\r\n    \"title\": \"Les nouveautés de Java 21\",\r\n    \"content\": \"Petit tour des nouvelles fonctionnalités de Java 21...\",\r\n    \"created_at\": \"2025-10-28T14:30:00Z\",\r\n    \"author\": {\r\n      \"id\": 7,\r\n      \"name\": \"Alice Dupont\",\r\n      \"email\": \"alice@example.com\"\r\n    },\r\n    \"topic\": {\r\n      \"id\": 3,\r\n      \"name\": \"Programmation\",\r\n      \"description\": \"Discussions autour du code et des langages\"\r\n    }\r\n  },\r\n  {\r\n    \"id\": 43,\r\n    \"title\": \"Guide rapide sur Spring Boot 3\",\r\n    \"content\": \"Spring Boot 3 apporte un support natif pour...\",\r\n    \"created_at\": \"2025-10-29T09:15:00Z\",\r\n    \"author\": {\r\n      \"id\": 8,\r\n      \"name\": \"Bob Martin\",\r\n      \"email\": \"bob@example.com\"\r\n    },\r\n    \"topic\": {\r\n      \"id\": 3,\r\n      \"name\": \"Programmation\",\r\n      \"description\": \"Discussions autour du code et des langages\"\r\n    }\r\n  }\r\n]"
+				}
+			]
+		},
+		{
+			"name": "Get all topics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/topics",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"topics"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get all topics",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "/topics",
+							"path": [
+								"topics"
+							]
+						}
+					},
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "[\r\n  {\r\n    \"id\": 1,\r\n    \"name\": \"Technologie\",\r\n    \"description\": \"Tout sur la tech et les innovations\"\r\n  },\r\n  {\r\n    \"id\": 2,\r\n    \"name\": \"Musique\",\r\n    \"description\": \"Partagez vos goûts et vos découvertes musicales\"\r\n  },\r\n  {\r\n    \"id\": 3,\r\n    \"name\": \"Programmation\",\r\n    \"description\": \"Discussions autour du code et des langages\"\r\n  }\r\n]"
+				}
+			]
+		},
+		{
+			"name": "Get a post",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/posts/{{id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"posts",
+						"{{id}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get a post",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "/posts/",
+							"path": [
+								"posts",
+								""
+							]
+						}
+					},
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "{\r\n  \"id\": 42,\r\n  \"title\": \"Les nouveautés de Java 21\",\r\n  \"content\": \"Petit tour des nouvelles fonctionnalités de Java 21...\",\r\n  \"created_at\": \"2025-10-28T14:30:00Z\",\r\n  \"author\": {\r\n    \"id\": 7,\r\n    \"name\": \"Alice Dupont\",\r\n    \"email\": \"alice@example.com\"\r\n  },\r\n  \"topic\": {\r\n    \"id\": 3,\r\n    \"name\": \"Programmation\",\r\n    \"description\": \"Discussions autour du code et des langages\"\r\n  },\r\n  \"comments\": [\r\n    {\r\n      \"id\": 157,\r\n      \"author\": {\r\n        \"id\": 9,\r\n        \"name\": \"Charles Petit\",\r\n        \"email\": \"charles@example.com\"\r\n      },\r\n      \"content\": \"Super article, merci !\",\r\n      \"created_at\": \"2025-10-29T12:15:00Z\"\r\n    }\r\n  ]\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Create a new post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"topic_id\": 3,\r\n  \"title\": \"Comprendre les records en Java\",\r\n  \"content\": \"Les records sont apparus pour simplifier les POJOs...\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/posts",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create a new post",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"topic_id\": 3,\r\n  \"title\": \"Comprendre les records en Java\",\r\n  \"content\": \"Les records sont apparus pour simplifier les POJOs...\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/posts",
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "{\r\n  \"id\": 44,\r\n  \"topic_id\": 3,\r\n  \"author_id\": 7,\r\n  \"title\": \"Comprendre les records en Java\",\r\n  \"content\": \"Les records sont apparus pour simplifier les POJOs...\",\r\n  \"created_at\": \"2025-10-29T15:00:00Z\"\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Subscribe to a post",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/posts/{{id}}/subscription",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"posts",
+						"{{id}}",
+						"subscription"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Subscribe to a post",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "/posts//subscription",
+							"path": [
+								"posts",
+								"",
+								"subscription"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "{\n  \"message\": \"Subscription added successfully\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Unsubcribe to a post",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/posts/{{id}}/subscription",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"posts",
+						"{{id}}",
+						"subscription"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Unsubcribe to a post",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "/posts//subscription",
+							"path": [
+								"posts",
+								"",
+								"subscription"
+							]
+						}
+					},
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "{\r\n  \"message\": \"Subscription removed successfully\"\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Comment a post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"content\": \"Super article, merci !\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/posts/{{id}}/comments",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"posts",
+						"{{id}}",
+						"comments"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Comment a post",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"Super article, merci !\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/posts//comments",
+							"path": [
+								"posts",
+								"",
+								"comments"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "{\n    \"id\": 157,\n    \"post_id\": 42,\n    \"user_id\": 7,\n    \"content\": \"Super article, merci !\",\n    \"created_at\": \"2025-10-29T12:15:00Z\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": ""
+		},
+		{
+			"key": "x-api-key",
+			"value": ""
+		}
+	]
+}
