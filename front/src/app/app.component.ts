@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FeedService } from './core/services/feed.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'front';
+
+  private feedService: FeedService = inject(FeedService);
+
+  ngOnInit(): void {
+    //this.feedService.loadInitialData();
+  }
+
 }
