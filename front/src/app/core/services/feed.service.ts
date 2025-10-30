@@ -9,17 +9,20 @@ import { Post } from '../models/Post';
   providedIn: 'root',
 })
 export class FeedService {
-    protected readonly feed$ = new BehaviorSubject<Post[]>([
-        {id: 1, title: "Titre 1", content: "contenu de l'article"}, 
-        {id: 2, title: "Titre 2", content: "contenu de l'article 2"}
-      ]); 
+    protected feedUrl = environment.feedUrl;
+    protected readonly feed$ = new BehaviorSubject<Post[]>([]); 
     protected http = inject(HttpClient);
 
     loadInitialData() {
-      // this.feed$.next([
-      //   {id: 1, title: "Titre 1", content: "contenu de l'article"}, 
-      //   {id: 2, title: "Titre 2", content: "contenu de l'article 2"}
-      // ]);
+      this.http.get<Post[]>(this.feedUrl).pipe(
+        tap((value) => {
+          this.feed$.next(value);
+        }),
+        catchError((error) => {
+          console.error(error);
+          return of([]);
+        })
+      ).subscribe();
     }
 
     getFeed(): Observable<Post[]> {

@@ -12,7 +12,7 @@ export class AppComponent {
   private feedService: FeedService = inject(FeedService);
 
   ngOnInit(): void {
-    //this.feedService.loadInitialData();
+    this.feedService.loadInitialData();
   }
 
 }
