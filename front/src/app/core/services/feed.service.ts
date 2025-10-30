@@ -23,6 +23,14 @@ export class FeedService {
           return of([]);
         })
       ).subscribe();
+
+      const eventSource = new EventSource(environment.feedUrl);
+
+      eventSource.onmessage = (event) => {
+        const post = JSON.parse(event.data);
+        this.feed$.next([post]);
+        console.log('post reçu', post);
+      };
     }
 
     getFeed(): Observable<Post[]> {

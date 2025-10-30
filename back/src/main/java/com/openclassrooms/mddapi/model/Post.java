@@ -2,30 +2,74 @@ package com.openclassrooms.mddapi.model;
 
 import java.time.Instant;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
-import org.hibernate.annotations.CreationTimestamp;
-
-@Entity
-@Table(name = "posts") 
+@Table("posts")
 public class Post {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Topic topic;
-    private User author;
+    @Column("topic_id")
+    private Integer topicId;
+
+    @Column("author_id")
+    private Integer authorId;
+
     private String title;
     private String content;
-    
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
+
+    @Column("created_at")
     private Instant createdAt;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getTopicId() {
+        return topicId;
+    }
+
+    public void setTopicId(Integer topicId) {
+        this.topicId = topicId;
+    }
+
+    public Integer getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(Integer authorId) {
+        this.authorId = authorId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
 
 }

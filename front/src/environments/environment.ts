@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  feedUrl: "https://890af717-a2c9-4c1d-bf8e-82af3e3f7d58.mock.pstmn.io/feed"
+  feedUrl: "http://localhost:8080/api/feed"
 };
 
 /*

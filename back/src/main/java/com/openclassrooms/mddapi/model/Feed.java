@@ -1,18 +1,18 @@
-package com.openclassrooms.mddapi.model;
+// package com.openclassrooms.mddapi.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+// import javax.persistence.Entity;
+// import javax.persistence.GeneratedValue;
+// import javax.persistence.GenerationType;
+// import javax.persistence.Id;
+// import javax.persistence.Table;
 
-@Entity
-@Table(name = "feeds") 
-/* Probably useless */
-public class Feed {
+// @Entity
+// @Table(name = "feeds") 
+// /* Probably useless */
+// public class Feed {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+//     @Id
+//     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//     private Integer id;
 
-}
+// }
