@@ -7,12 +7,6 @@ import reactor.core.publisher.Sinks;
 
 @Configuration
 public class SseConfig {
-
-    @Bean
-    public Sinks.Many<PostEvent> postEventSink() {
-        return Sinks.many().multicast().onBackpressureBuffer();
-    }
-
     @Bean
     public Sinks.Many<PostSse> postSink() {
         return Sinks.many().multicast().onBackpressureBuffer();

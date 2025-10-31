@@ -3,37 +3,39 @@ package com.openclassrooms.mddapi.service;
 import java.time.Instant;
 
 import org.springframework.stereotype.Service;
+
 import com.openclassrooms.mddapi.model.Post;
 import com.openclassrooms.mddapi.repository.PostRepository;
-import com.openclassrooms.mddapi.sse.PostEvent;
+import com.openclassrooms.mddapi.sse.PostPublisher;
+import com.openclassrooms.mddapi.sse.PostSse;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.core.publisher.Sinks;
 
 @Service
 public class PostService {
 
     private final PostRepository postRepository;
+    private final PostPublisher postPublisher;
 
-    public PostService(PostRepository postRepository,
-                       Sinks.Many<PostEvent> postSink) {
+    public PostService(
+        PostRepository postRepository,
+        PostPublisher postPublisher
+    ) {
         this.postRepository = postRepository;
-        this.postSink = postSink;
+        this.postPublisher = postPublisher;
     }
 
-    public Flux<Post> getAllPosts() {
-        return postRepository.findAll();
+    public Flux<Post> getRecent() {
+        return postRepository.findRecent();
     }
-
-    private final Sinks.Many<PostEvent> postSink;
 
     public Mono<Post> create(Post post) {
         post.setCreatedAt(Instant.now());
         return postRepository.save(post)
                 .doOnSuccess(saved -> {
-                    postSink.tryEmitNext(
-                        new PostEvent("CREATED", saved.getId(), Instant.now())
+                    this.postPublisher.publish(
+                        new PostSse(saved.getId(), saved.getTitle(), saved.getContent(), "java")
                     );
                 });
     }
