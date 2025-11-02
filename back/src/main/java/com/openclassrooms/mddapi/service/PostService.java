@@ -35,7 +35,11 @@ public class PostService {
         return postRepository.save(post)
                 .doOnSuccess(saved -> {
                     this.postPublisher.publish(
-                        new PostSse(saved.getId(), saved.getTitle(), saved.getContent(), "java")
+                        new PostSse(
+                            saved.getId(), 
+                            saved.getTitle(), 
+                            saved.getContent(), 
+                            "java")
                     );
                 });
     }
