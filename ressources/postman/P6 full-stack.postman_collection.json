@@ -44,12 +44,120 @@
 							"path": ""
 						}
 					],
-					"body": "[\r\n  {\r\n    \"id\": 42,\r\n    \"title\": \"Les nouveautés de Java 21\",\r\n    \"content\": \"Petit tour des nouvelles fonctionnalités de Java 21...\",\r\n    \"created_at\": \"2025-10-28T14:30:00Z\",\r\n    \"author\": {\r\n      \"id\": 7,\r\n      \"name\": \"Alice Dupont\",\r\n      \"email\": \"alice@example.com\"\r\n    },\r\n    \"topic\": {\r\n      \"id\": 3,\r\n      \"name\": \"Programmation\",\r\n      \"description\": \"Discussions autour du code et des langages\"\r\n    }\r\n  },\r\n  {\r\n    \"id\": 43,\r\n    \"title\": \"Guide rapide sur Spring Boot 3\",\r\n    \"content\": \"Spring Boot 3 apporte un support natif pour...\",\r\n    \"created_at\": \"2025-10-29T09:15:00Z\",\r\n    \"author\": {\r\n      \"id\": 8,\r\n      \"name\": \"Bob Martin\",\r\n      \"email\": \"bob@example.com\"\r\n    },\r\n    \"topic\": {\r\n      \"id\": 3,\r\n      \"name\": \"Programmation\",\r\n      \"description\": \"Discussions autour du code et des langages\"\r\n    }\r\n  }\r\n]"
+					"body": "[\r\n  {\r\n    \"id\": 42,\r\n    \"title\": \"Les nouveautés de Java 22\",\r\n    \"content\": \"Petit tour des nouvelles fonctionnalités de Java 21...\",\r\n    \"created_at\": \"2025-10-28T14:30:00Z\",\r\n    \"author\": {\r\n      \"id\": 7,\r\n      \"name\": \"Alice Dupont\",\r\n      \"email\": \"alice@example.com\"\r\n    },\r\n    \"topic\": {\r\n      \"id\": 3,\r\n      \"name\": \"Programmation\",\r\n      \"description\": \"Discussions autour du code et des langages\"\r\n    }\r\n  },\r\n  {\r\n    \"id\": 43,\r\n    \"title\": \"Guide rapide sur Spring Boot 3\",\r\n    \"content\": \"Spring Boot 3 apporte un support natif pour...\",\r\n    \"created_at\": \"2025-10-29T09:15:00Z\",\r\n    \"author\": {\r\n      \"id\": 8,\r\n      \"name\": \"Bob Martin\",\r\n      \"email\": \"bob@example.com\"\r\n    },\r\n    \"topic\": {\r\n      \"id\": 3,\r\n      \"name\": \"Programmation\",\r\n      \"description\": \"Discussions autour du code et des langages\"\r\n    }\r\n  }\r\n]"
 				}
 			]
 		},
 		{
+			"name": "Get feed stream",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"topic_id\": 3,\r\n  \"title\": \"Comprendre les records en Java\",\r\n  \"content\": \"Les records sont apparus pour simplifier les POJOs...\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/feed/stream",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"feed",
+						"stream"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new topic",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Le code de réponse est 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Title is not null\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.topicId).not.null;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content is not null\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.content).not.null;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Java\",\r\n  \"content\": \"java content\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/topics",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"topics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get all topics",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Le code de réponse est 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"A topic is sent back with id\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].id).not.null;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has a title + content\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].title).not.null;\r",
+							"    pm.expect(jsonData[0].content).not.null;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -90,56 +198,54 @@
 			]
 		},
 		{
-			"name": "Get a post",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/posts/{{id}}",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"posts",
-						"{{id}}"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Get a post",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "/posts/",
-							"path": [
-								"posts",
-								""
-							]
-						}
-					},
-					"_postman_previewlanguage": "",
-					"header": [],
-					"cookie": [
-						{
-							"expires": "Invalid Date",
-							"domain": "",
-							"path": ""
-						}
-					],
-					"body": "{\r\n  \"id\": 42,\r\n  \"title\": \"Les nouveautés de Java 21\",\r\n  \"content\": \"Petit tour des nouvelles fonctionnalités de Java 21...\",\r\n  \"created_at\": \"2025-10-28T14:30:00Z\",\r\n  \"author\": {\r\n    \"id\": 7,\r\n    \"name\": \"Alice Dupont\",\r\n    \"email\": \"alice@example.com\"\r\n  },\r\n  \"topic\": {\r\n    \"id\": 3,\r\n    \"name\": \"Programmation\",\r\n    \"description\": \"Discussions autour du code et des langages\"\r\n  },\r\n  \"comments\": [\r\n    {\r\n      \"id\": 157,\r\n      \"author\": {\r\n        \"id\": 9,\r\n        \"name\": \"Charles Petit\",\r\n        \"email\": \"charles@example.com\"\r\n      },\r\n      \"content\": \"Super article, merci !\",\r\n      \"created_at\": \"2025-10-29T12:15:00Z\"\r\n    }\r\n  ]\r\n}"
-				}
-			]
-		},
-		{
 			"name": "Create a new post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Le code de réponse est 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Topic id is not null\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.topicId).not.null;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Author id is not null\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.authorId).not.null;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"CreatedAt id is not null\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.createdAt).not.null;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"topic_id\": 3,\r\n  \"title\": \"Comprendre les records en Java\",\r\n  \"content\": \"Les records sont apparus pour simplifier les POJOs...\"\r\n}",
+					"raw": "{\r\n    \"topic_id\": 1,\r\n    \"title\": \"Comprendre les records en Java\",\r\n    \"content\": \"Les records sont apparus pour simplifier les POJOs...\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -198,6 +304,75 @@
 			]
 		},
 		{
+			"name": "Get a post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Le code de réponse est 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Title is not null\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.title).not.null;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content is not null\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.content).not.null;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/posts/{{id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"posts",
+						"{{id}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get a post",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "/posts/",
+							"path": [
+								"posts",
+								""
+							]
+						}
+					},
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"domain": "",
+							"path": ""
+						}
+					],
+					"body": "{\r\n  \"id\": 42,\r\n  \"title\": \"Les nouveautés de Java 21\",\r\n  \"content\": \"Petit tour des nouvelles fonctionnalités de Java 21...\",\r\n  \"created_at\": \"2025-10-28T14:30:00Z\",\r\n  \"author\": {\r\n    \"id\": 7,\r\n    \"name\": \"Alice Dupont\",\r\n    \"email\": \"alice@example.com\"\r\n  },\r\n  \"topic\": {\r\n    \"id\": 3,\r\n    \"name\": \"Programmation\",\r\n    \"description\": \"Discussions autour du code et des langages\"\r\n  },\r\n  \"comments\": [\r\n    {\r\n      \"id\": 157,\r\n      \"author\": {\r\n        \"id\": 9,\r\n        \"name\": \"Charles Petit\",\r\n        \"email\": \"charles@example.com\"\r\n      },\r\n      \"content\": \"Super article, merci !\",\r\n      \"created_at\": \"2025-10-29T12:15:00Z\"\r\n    }\r\n  ]\r\n}"
+				}
+			]
+		},
+		{
 			"name": "Subscribe to a post",
 			"request": {
 				"method": "PUT",
@@ -234,7 +409,6 @@
 						{
 							"key": "Content-Type",
 							"value": "application/json",
-							"name": "Content-Type",
 							"description": "",
 							"type": "text"
 						}
@@ -358,7 +532,6 @@
 						{
 							"key": "Content-Type",
 							"value": "application/json",
-							"name": "Content-Type",
 							"description": "",
 							"type": "text"
 						}
