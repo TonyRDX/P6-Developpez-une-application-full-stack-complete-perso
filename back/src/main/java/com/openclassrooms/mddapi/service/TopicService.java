@@ -21,6 +21,10 @@ public class TopicService {
         this.topicRepository = topicRepository;
     }
 
+    public Mono<Topic> getOne(Integer id) {
+        return topicRepository.findById(id);
+    }
+
     public Flux<Topic> getAll() {
         return topicRepository.findAll();
     }
