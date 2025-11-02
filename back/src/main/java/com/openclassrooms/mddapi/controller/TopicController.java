@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import com.openclassrooms.mddapi.dto.AddTopicRequest;
 import com.openclassrooms.mddapi.model.Topic;
 import com.openclassrooms.mddapi.service.TopicService;
 
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -30,5 +32,10 @@ public class TopicController {
         topic.setContent(request.content());
 
         return topicService.create(topic);
+    }
+
+    @GetMapping
+    public Flux<Topic> post() {
+        return topicService.getAll();
     }
 }
