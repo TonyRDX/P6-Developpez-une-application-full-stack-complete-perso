@@ -7,9 +7,11 @@ import org.springframework.stereotype.Repository;
 import com.openclassrooms.mddapi.model.Post;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Repository
 public interface PostRepository extends ReactiveCrudRepository<Post, Integer> {
     @Query("SELECT * FROM posts ORDER BY created_at DESC LIMIT 30")
     Flux<Post> findRecent();
+    Mono<Post> findById(Integer id);
 }

@@ -30,6 +30,10 @@ public class PostService {
         return postRepository.findRecent();
     }
 
+    public Mono<Post> getOne(Integer id) {
+        return postRepository.findById(id);
+    }
+
     public Mono<Post> create(Post post) {
         post.setCreatedAt(Instant.now());
         return postRepository.save(post)

@@ -35,7 +35,7 @@ public class TopicController {
     }
 
     @GetMapping
-    public Flux<Topic> post() {
+    public Flux<Topic> get() {
         return topicService.getAll();
     }
 }

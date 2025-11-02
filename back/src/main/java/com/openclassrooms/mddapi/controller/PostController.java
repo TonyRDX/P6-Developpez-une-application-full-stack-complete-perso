@@ -1,6 +1,8 @@
 package com.openclassrooms.mddapi.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,5 +41,11 @@ public class PostController {
         return topicService.getOne(request.topic_id())
             .switchIfEmpty(Mono.error(new RuntimeException("Topic not found")))
             .flatMap(topic -> postService.create(post));
+    }
+
+    @GetMapping("/{id}")
+    public Mono<Post> get(@PathVariable Integer id) {
+        return postService.getOne(id)
+            .switchIfEmpty(Mono.error(new RuntimeException("Failed to fetch")));
     }
 }
