@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.openclassrooms.mddapi.dto.AddPostRequest;
 import com.openclassrooms.mddapi.model.Post;
+import com.openclassrooms.mddapi.model.Topic;
 import com.openclassrooms.mddapi.service.PostService;
+import com.openclassrooms.mddapi.service.ReactiveUserContext;
 import com.openclassrooms.mddapi.service.TopicService;
 
 import reactor.core.publisher.Mono;
@@ -31,16 +34,29 @@ public class PostController {
         this.topicService = topicService;
     }
 
+    @Autowired
+    private ReactiveUserContext userContext;
+
     @PostMapping
     public Mono<Post> post(@RequestBody AddPostRequest request) {
-        Post post = new Post();
-        post.setTitle(request.title());
-        post.setContent(request.content());
-        post.setTopicId(request.topic_id());
-        
-        return topicService.getOne(request.topic_id())
-            .switchIfEmpty(Mono.error(new RuntimeException("Topic not found")))
-            .flatMap(topic -> postService.create(post));
+
+        Mono<Integer> userIdMono = userContext.getUserId();
+        Mono<Topic> topicMono = topicService.getOne(request.topic_id())
+            .switchIfEmpty(Mono.error(new RuntimeException("Topic not found")));
+
+        return userIdMono.zipWith(topicMono) // combiner les flux
+            .flatMap(tuple -> {              // executer asynchrone
+                Integer userId = tuple.getT1();
+                Topic topic = tuple.getT2();
+
+                Post post = new Post();
+                post.setTitle(request.title());
+                post.setContent(request.content());
+                post.setTopicId(topic.getId());
+                post.setAuthorId(userId);
+
+                return postService.create(post);
+            });
     }
 
     @GetMapping("/{id}")

@@ -4,5 +4,5 @@ public record PostSse(
         Integer id,
         String title,
         String content,
-        String theme
+        Integer topicId
 ) {}

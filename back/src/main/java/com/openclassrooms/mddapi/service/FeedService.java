@@ -8,6 +8,7 @@ import com.openclassrooms.mddapi.sse.PostPublisher;
 import com.openclassrooms.mddapi.sse.PostSse;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Service
 public class FeedService {
@@ -23,12 +24,12 @@ public class FeedService {
         this.userService = userService;
     }
 
-    public Flux<PostSse> liveForUser(String userId) {
-        return userService.getThemes(userId)
+    public Flux<PostSse> liveForUser(Mono<Integer> userId) {
+        return userService.getTopics(userId)
                 .map(List::copyOf)
-                .flatMapMany(themes ->
+                .flatMapMany(topics ->
                         postPublisher.flux()
-                                .filter(post -> themes.contains(post.theme()))
+                                .filter(post -> topics.contains(post.topicId()))
                 );
     }
 }

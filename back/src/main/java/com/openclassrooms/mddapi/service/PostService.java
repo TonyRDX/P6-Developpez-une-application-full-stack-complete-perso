@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.service;
 
 import java.time.Instant;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -26,8 +27,12 @@ public class PostService {
         this.postPublisher = postPublisher;
     }
 
-    public Flux<Post> getRecent() {
-        return postRepository.findRecent();
+    public Flux<Post> getRecent(Mono<List<Integer>> topicIds) {
+        return topicIds.flatMapMany(ids ->
+            ids.isEmpty() ?
+                Flux.empty() : 
+                postRepository.findAllByTopicIdIn(ids)
+        );
     }
 
     public Mono<Post> getOne(Integer id) {
@@ -43,7 +48,7 @@ public class PostService {
                             saved.getId(), 
                             saved.getTitle(), 
                             saved.getContent(), 
-                            "java")
+                            post.getTopicId())
                     );
                 });
     }

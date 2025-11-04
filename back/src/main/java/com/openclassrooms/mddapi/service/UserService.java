@@ -10,13 +10,14 @@ import reactor.core.publisher.Mono;
 @Service
 public class UserService {
 
-    private final Map<String, List<String>> themesByUser = Map.of(
-            "u1", List.of("java", "spring"),
-            "u2", List.of("kotlin")
+    private static final Map<Integer, List<Integer>> topicsByUser = Map.of(
+            1, List.of(1, 2),
+            2, List.of(3)
     );
 
-    public Mono<List<String>> getThemes(String userId) {
-        return Mono.justOrEmpty(themesByUser.get(userId))
-                   .defaultIfEmpty(List.of());
+    public Mono<List<Integer>> getTopics(Mono<Integer> userId) {
+        return userId
+            .flatMap(id -> Mono.justOrEmpty(topicsByUser.get(id)))
+            .defaultIfEmpty(List.of());
     }
 }
