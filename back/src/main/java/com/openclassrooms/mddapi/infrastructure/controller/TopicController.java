@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.controller;
+package com.openclassrooms.mddapi.infrastructure.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openclassrooms.mddapi.dto.AddTopicRequest;
-import com.openclassrooms.mddapi.model.Topic;
-import com.openclassrooms.mddapi.service.TopicService;
+import com.openclassrooms.mddapi.application.service.TopicService;
+import com.openclassrooms.mddapi.domain.model.Topic;
+import com.openclassrooms.mddapi.infrastructure.dto.AddTopicRequest;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

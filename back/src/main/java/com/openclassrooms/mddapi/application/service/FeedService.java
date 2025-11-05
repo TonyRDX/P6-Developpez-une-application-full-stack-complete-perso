@@ -1,11 +1,11 @@
-package com.openclassrooms.mddapi.service;
+package com.openclassrooms.mddapi.application.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.openclassrooms.mddapi.sse.PostPublisher;
-import com.openclassrooms.mddapi.sse.PostSse;
+import com.openclassrooms.mddapi.infrastructure.sse.PostPublisher;
+import com.openclassrooms.mddapi.infrastructure.sse.PostSse;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.controller;
+package com.openclassrooms.mddapi.infrastructure.controller;
 
 import java.time.Duration;
 
@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openclassrooms.mddapi.model.Post;
-import com.openclassrooms.mddapi.service.FeedService;
-import com.openclassrooms.mddapi.service.PostService;
-import com.openclassrooms.mddapi.service.ReactiveUserContext;
-import com.openclassrooms.mddapi.service.UserService;
-import com.openclassrooms.mddapi.sse.PostSse;
+import com.openclassrooms.mddapi.application.service.FeedService;
+import com.openclassrooms.mddapi.application.service.PostService;
+import com.openclassrooms.mddapi.application.service.UserService;
+import com.openclassrooms.mddapi.domain.model.Post;
+import com.openclassrooms.mddapi.infrastructure.service.ReactiveUserContext;
+import com.openclassrooms.mddapi.infrastructure.sse.PostSse;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

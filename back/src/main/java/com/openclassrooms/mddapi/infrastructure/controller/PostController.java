@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.controller;
+package com.openclassrooms.mddapi.infrastructure.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openclassrooms.mddapi.dto.AddPostRequest;
-import com.openclassrooms.mddapi.model.Post;
-import com.openclassrooms.mddapi.model.Topic;
-import com.openclassrooms.mddapi.service.PostService;
-import com.openclassrooms.mddapi.service.ReactiveUserContext;
-import com.openclassrooms.mddapi.service.TopicService;
+import com.openclassrooms.mddapi.application.service.PostService;
+import com.openclassrooms.mddapi.application.service.TopicService;
+import com.openclassrooms.mddapi.domain.model.Post;
+import com.openclassrooms.mddapi.domain.model.Topic;
+import com.openclassrooms.mddapi.infrastructure.dto.AddPostRequest;
+import com.openclassrooms.mddapi.infrastructure.service.ReactiveUserContext;
 
 import reactor.core.publisher.Mono;
 

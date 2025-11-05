@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.repository;
+package com.openclassrooms.mddapi.infrastructure.repository;
 
 import java.util.Collection;
 
@@ -6,10 +6,11 @@ import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.openclassrooms.mddapi.model.Post;
+import com.openclassrooms.mddapi.domain.model.Post;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
 
 @Repository
 public interface PostRepository extends ReactiveCrudRepository<Post, Integer> {

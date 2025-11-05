@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.sse;
+package com.openclassrooms.mddapi.infrastructure.sse;
 
 import org.springframework.stereotype.Component;
 

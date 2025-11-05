@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.service;
+package com.openclassrooms.mddapi.infrastructure.service;
 
 // import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 // import org.springframework.security.core.context.SecurityContext;

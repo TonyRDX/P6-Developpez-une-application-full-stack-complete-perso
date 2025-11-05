@@ -1,14 +1,13 @@
-package com.openclassrooms.mddapi.service;
+package com.openclassrooms.mddapi.application.service;
 
 import java.time.Instant;
 
-import org.springframework.stereotype.Service;
-
-import com.openclassrooms.mddapi.model.Topic;
-import com.openclassrooms.mddapi.repository.TopicRepository;
-
+import com.openclassrooms.mddapi.domain.model.Topic;
+import com.openclassrooms.mddapi.infrastructure.repository.TopicRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import org.springframework.stereotype.Service;
 
 @Service
 public class TopicService {

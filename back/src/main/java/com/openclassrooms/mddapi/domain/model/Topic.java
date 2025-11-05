@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.model;
+package com.openclassrooms.mddapi.domain.model;
 
 import java.time.Instant;
 
@@ -6,17 +6,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Table("posts")
-public class Post {
+@Table("topics")
+public class Topic {
 
     @Id
     private Integer id;
-
-    @Column("topic_id")
-    private Integer topicId;
-
-    @Column("author_id")
-    private Integer authorId;
 
     private String title;
     private String content;
@@ -30,22 +24,6 @@ public class Post {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getTopicId() {
-        return topicId;
-    }
-
-    public void setTopicId(Integer topicId) {
-        this.topicId = topicId;
-    }
-
-    public Integer getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(Integer authorId) {
-        this.authorId = authorId;
     }
 
     public String getTitle() {
@@ -71,5 +49,4 @@ public class Post {
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
-
 }
