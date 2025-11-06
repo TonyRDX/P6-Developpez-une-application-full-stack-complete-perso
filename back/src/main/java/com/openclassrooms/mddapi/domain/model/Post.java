@@ -7,7 +7,7 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table("posts")
-public class Post {
+public class Post implements Entity {
 
     @Id
     private Integer id;

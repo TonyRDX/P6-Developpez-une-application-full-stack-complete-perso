@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.openclassrooms.mddapi.application.CreatePostCommand;
 import com.openclassrooms.mddapi.application.service.PostService;
 import com.openclassrooms.mddapi.application.service.TopicService;
 import com.openclassrooms.mddapi.domain.model.Post;
@@ -28,7 +29,7 @@ public class PostController {
 
     public PostController(
         PostService postService,    
-        TopicService topicService    
+        TopicService topicService
     ) {
         this.postService = postService;
         this.topicService = topicService;
@@ -39,7 +40,6 @@ public class PostController {
 
     @PostMapping
     public Mono<Post> post(@RequestBody AddPostRequest request) {
-
         Mono<Integer> userIdMono = userContext.getUserId();
         Mono<Topic> topicMono = topicService.getOne(request.topic_id())
             .switchIfEmpty(Mono.error(new RuntimeException("Topic not found")));
@@ -49,13 +49,14 @@ public class PostController {
                 Integer userId = tuple.getT1();
                 Topic topic = tuple.getT2();
 
-                Post post = new Post();
-                post.setTitle(request.title());
-                post.setContent(request.content());
-                post.setTopicId(topic.getId());
-                post.setAuthorId(userId);
-
-                return postService.create(post);
+                CreatePostCommand cmd = new CreatePostCommand(
+                    request.title(), 
+                    request.content(), 
+                    request.topic_id(),
+                    userId
+                );
+                
+                return Mono.from((Mono<Post>) postService.create(cmd));
             });
     }
 

@@ -3,12 +3,13 @@ package com.openclassrooms.mddapi.application.service;
 import java.time.Instant;
 import java.util.List;
 
+import org.reactivestreams.Publisher;
 import org.springframework.stereotype.Service;
 
+import com.openclassrooms.mddapi.application.CreatePostCommand;
+import com.openclassrooms.mddapi.application.unitofwork.UseCaseUnitOfWork;
 import com.openclassrooms.mddapi.domain.model.Post;
 import com.openclassrooms.mddapi.infrastructure.repository.PostRepository;
-import com.openclassrooms.mddapi.infrastructure.sse.PostPublisher;
-import com.openclassrooms.mddapi.infrastructure.sse.PostSse;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -17,14 +18,14 @@ import reactor.core.publisher.Mono;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final PostPublisher postPublisher;
+    private final UseCaseUnitOfWork<CreatePostCommand> uow;
 
     public PostService(
         PostRepository postRepository,
-        PostPublisher postPublisher
+        UseCaseUnitOfWork<CreatePostCommand> uow
     ) {
         this.postRepository = postRepository;
-        this.postPublisher = postPublisher;
+        this.uow = uow;
     }
 
     public Flux<Post> getRecent(Mono<List<Integer>> topicIds) {
@@ -39,18 +40,17 @@ public class PostService {
         return postRepository.findById(id);
     }
 
-    public Mono<Post> create(Post post) {
-        post.setCreatedAt(Instant.now());
-        return postRepository.save(post)
-                .doOnSuccess(saved -> {
-                    this.postPublisher.publish(
-                        new PostSse(
-                            saved.getId(), 
-                            saved.getTitle(), 
-                            saved.getContent(), 
-                            post.getTopicId())
-                    );
-                });
-    }
+    public Publisher<?> create(CreatePostCommand command) {
+        // TODO check topic and user id
 
+        Post post = new Post();
+        post.setTitle(command.title());
+        post.setContent(command.content());
+        post.setTopicId(command.topic_id());
+        post.setAuthorId(command.user_id());
+        post.setCreatedAt(Instant.now());
+
+        uow.<Post>register(post);
+        return uow.completeAndReturn();
+    }
 }
