@@ -11,7 +11,6 @@ import com.openclassrooms.mddapi.domain.model.Post;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-
 @Repository
 public interface PostRepository extends ReactiveCrudRepository<Post, Integer> {
     @Query("SELECT * FROM posts ORDER BY created_at DESC LIMIT 30")

@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.infrastructure.sse;
+package com.openclassrooms.mddapi.infrastructure.config.sse;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

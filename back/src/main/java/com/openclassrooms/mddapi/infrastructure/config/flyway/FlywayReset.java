@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.infrastructure.flyway;
+package com.openclassrooms.mddapi.infrastructure.config.flyway;
 
 import org.flywaydb.core.Flyway;
 import org.springframework.stereotype.Component;
