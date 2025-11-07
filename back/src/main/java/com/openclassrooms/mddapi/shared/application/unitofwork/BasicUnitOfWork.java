@@ -1,9 +1,10 @@
-package com.openclassrooms.mddapi.application.unitofwork;
+package com.openclassrooms.mddapi.shared.application.unitofwork;
 
 import org.reactivestreams.Publisher;
 
+
 public interface BasicUnitOfWork<T> {
     void register(T entity);
-    void load(Class<T> type, Integer id);
+    T load(Class<T> type, Integer id);
     Publisher<T> completeAndReturn();
 }

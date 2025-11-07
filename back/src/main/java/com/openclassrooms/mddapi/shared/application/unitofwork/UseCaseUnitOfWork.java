@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.application.unitofwork;
+package com.openclassrooms.mddapi.shared.application.unitofwork;
 
 import org.reactivestreams.Publisher;
 
@@ -14,6 +14,6 @@ import org.reactivestreams.Publisher;
  */
 public interface UseCaseUnitOfWork<UC> {
     <T> void register(T entity) throws UnsupportedOperationException;
-    <T> void load(Class<T> type, Integer id) throws UnsupportedOperationException;
+    <T> T load(Class<T> type, Integer id) throws UnsupportedOperationException;
     Publisher<?> completeAndReturn() throws UnsupportedOperationException;
 }

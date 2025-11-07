@@ -14,8 +14,8 @@ import com.openclassrooms.mddapi.application.service.FeedService;
 import com.openclassrooms.mddapi.application.service.PostService;
 import com.openclassrooms.mddapi.application.service.UserService;
 import com.openclassrooms.mddapi.domain.model.Post;
+import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostSse;
 import com.openclassrooms.mddapi.infrastructure.service.ReactiveUserContext;
-import com.openclassrooms.mddapi.infrastructure.sse.PostSse;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

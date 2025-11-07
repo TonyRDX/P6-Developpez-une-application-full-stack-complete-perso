@@ -3,6 +3,8 @@ package com.openclassrooms.mddapi.infrastructure.sse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostSse;
+
 import reactor.core.publisher.Sinks;
 
 @Configuration

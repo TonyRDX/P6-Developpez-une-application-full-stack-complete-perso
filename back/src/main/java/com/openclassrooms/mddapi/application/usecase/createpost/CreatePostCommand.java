@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.application;
+package com.openclassrooms.mddapi.application.usecase.createpost;
 
 public record CreatePostCommand (
     String title,

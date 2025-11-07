@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.infrastructure.sse;
+package com.openclassrooms.mddapi.infrastructure.featuregroup.post;
 
 public record PostSse(
         Integer id,

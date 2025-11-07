@@ -4,12 +4,12 @@ import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.openclassrooms.mddapi.application.CreatePostCommand;
-import com.openclassrooms.mddapi.application.unitofwork.UseCaseUnitOfWork;
+import com.openclassrooms.mddapi.application.usecase.createpost.CreatePostCommand;
 import com.openclassrooms.mddapi.domain.model.Post;
+import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostPublisher;
+import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostSse;
 import com.openclassrooms.mddapi.infrastructure.repository.PostRepository;
-import com.openclassrooms.mddapi.infrastructure.sse.PostPublisher;
-import com.openclassrooms.mddapi.infrastructure.sse.PostSse;
+import com.openclassrooms.mddapi.shared.application.unitofwork.UseCaseUnitOfWork;
 
 @Component
 public class CreatePostCommandUoW implements UseCaseUnitOfWork<CreatePostCommand>{
@@ -35,7 +35,7 @@ public class CreatePostCommandUoW implements UseCaseUnitOfWork<CreatePostCommand
     }
 
     @Override
-    public <T> void load(Class<T> type, Integer id) {
+    public <T> T load(Class<T> type, Integer id) {
         throw new UnsupportedOperationException("Unimplemented method 'load'");
     }
 

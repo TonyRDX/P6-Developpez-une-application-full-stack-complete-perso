@@ -4,12 +4,14 @@ import java.time.Instant;
 import java.util.List;
 
 import org.reactivestreams.Publisher;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Service;
 
-import com.openclassrooms.mddapi.application.CreatePostCommand;
-import com.openclassrooms.mddapi.application.unitofwork.UseCaseUnitOfWork;
+import com.openclassrooms.mddapi.application.usecase.createpost.CreatePostCommand;
 import com.openclassrooms.mddapi.domain.model.Post;
 import com.openclassrooms.mddapi.infrastructure.repository.PostRepository;
+import com.openclassrooms.mddapi.shared.application.unitofwork.BasicUnitOfWork;
+import com.openclassrooms.mddapi.shared.application.unitofwork.UseCaseUnitOfWork;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -19,13 +21,16 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final UseCaseUnitOfWork<CreatePostCommand> uow;
+    private final ObjectProvider<BasicUnitOfWork<Post>> uowProvider;
 
     public PostService(
         PostRepository postRepository,
-        UseCaseUnitOfWork<CreatePostCommand> uow
+        UseCaseUnitOfWork<CreatePostCommand> uow,
+        ObjectProvider<BasicUnitOfWork<Post>> uowProvider
     ) {
         this.postRepository = postRepository;
         this.uow = uow;
+        this.uowProvider = uowProvider;
     }
 
     public Flux<Post> getRecent(Mono<List<Integer>> topicIds) {
@@ -34,10 +39,6 @@ public class PostService {
                 Flux.empty() : 
                 postRepository.findAllByTopicIdIn(ids)
         );
-    }
-
-    public Mono<Post> getOne(Integer id) {
-        return postRepository.findById(id);
     }
 
     public Publisher<?> create(CreatePostCommand command) {
