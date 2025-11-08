@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.reactivestreams.Publisher;
 
-import com.openclassrooms.mddapi.domain.model.Post;
+import com.openclassrooms.mddapi.infrastructure.persistence.Post;
 import com.openclassrooms.mddapi.shared.application.unitofwork.BasicUnitOfWork;
 import com.openclassrooms.mddapi.shared.application.unitofwork.UoWContext;
 

@@ -1,0 +1,5 @@
+<div class="center">
+  <div class="feed" *ngFor="let post of feed$ | async">
+    <post-card [post]="post"></post-card>
+  </div>
+</div>

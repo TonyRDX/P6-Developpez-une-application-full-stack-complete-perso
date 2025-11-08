@@ -13,9 +13,9 @@ import com.openclassrooms.mddapi.application.service.PostService;
 import com.openclassrooms.mddapi.application.service.TopicService;
 import com.openclassrooms.mddapi.application.usecase.createpost.CreatePostCommand;
 import com.openclassrooms.mddapi.application.usecase.getpost.GetPostByIdQuery;
-import com.openclassrooms.mddapi.domain.model.Post;
 import com.openclassrooms.mddapi.domain.model.Topic;
 import com.openclassrooms.mddapi.infrastructure.dto.AddPostRequest;
+import com.openclassrooms.mddapi.infrastructure.persistence.Post;
 import com.openclassrooms.mddapi.infrastructure.service.ReactiveUserContext;
 import com.openclassrooms.mddapi.shared.infrastructure.MessageHandler;
 

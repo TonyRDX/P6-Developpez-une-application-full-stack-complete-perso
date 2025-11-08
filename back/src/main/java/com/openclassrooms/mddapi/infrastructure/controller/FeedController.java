@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.infrastructure.controller;
 
 import java.time.Duration;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openclassrooms.mddapi.application.service.FeedService;
 import com.openclassrooms.mddapi.application.service.PostService;
 import com.openclassrooms.mddapi.application.service.UserService;
-import com.openclassrooms.mddapi.domain.model.Post;
+import com.openclassrooms.mddapi.application.usecase.getfeed.GetFeedQuery;
+import com.openclassrooms.mddapi.infrastructure.dto.SinglePostFeed;
 import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostSse;
+import com.openclassrooms.mddapi.infrastructure.persistence.Post;
 import com.openclassrooms.mddapi.infrastructure.service.ReactiveUserContext;
 
 import reactor.core.publisher.Flux;
@@ -46,9 +49,24 @@ public class FeedController {
     }
 
     @GetMapping
-    public Flux<Post> getFeed() {
-        Mono<Integer> userIdMono = userContext.getUserId();
-        return this.postService.getRecent(userService.getTopics(userIdMono));
+    public Flux<SinglePostFeed> getFeed() {
+        GetFeedQuery getFeedQuery = new GetFeedQuery(
+            userContext.getUserId(),
+            true
+        );
+
+        return this.feedService.getFeed(getFeedQuery)
+            .map(this::formatPost);
+    }
+
+    private SinglePostFeed formatPost(Post post) {
+        return new SinglePostFeed(
+            post.getId(),
+            post.getAuthorId().toString(),
+            post.getTitle(),
+            post.getContent(),
+            post.getCreatedAt()
+        );
     }
 
     @GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)

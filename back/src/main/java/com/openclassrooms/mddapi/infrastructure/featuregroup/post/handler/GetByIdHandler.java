@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 
 import com.openclassrooms.mddapi.application.usecase.getpost.GetPostByIdQuery;
 import com.openclassrooms.mddapi.application.usecase.getpost.GetPostByIdQueryHandler;
-import com.openclassrooms.mddapi.domain.model.Post;
 import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostPublisher;
 import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostUnitOfWork;
 import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostUnitOfWork.UoWContextImpl;
+import com.openclassrooms.mddapi.infrastructure.persistence.Post;
 import com.openclassrooms.mddapi.infrastructure.repository.PostRepository;
 import com.openclassrooms.mddapi.shared.application.unitofwork.BasicUnitOfWork;
 import com.openclassrooms.mddapi.shared.infrastructure.MessageHandler;

@@ -1,6 +1,6 @@
 package com.openclassrooms.mddapi.application.usecase.getpost;
 
-import com.openclassrooms.mddapi.domain.model.Post;
+import com.openclassrooms.mddapi.infrastructure.persistence.Post;
 import com.openclassrooms.mddapi.shared.application.QueryHandler;
 import com.openclassrooms.mddapi.shared.application.response.BasicUseCaseResponse;
 import com.openclassrooms.mddapi.shared.application.unitofwork.BasicUnitOfWork;

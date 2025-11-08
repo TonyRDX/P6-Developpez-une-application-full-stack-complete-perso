@@ -8,7 +8,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.mddapi.application.usecase.createpost.CreatePostCommand;
-import com.openclassrooms.mddapi.domain.model.Post;
+import com.openclassrooms.mddapi.infrastructure.persistence.Post;
 import com.openclassrooms.mddapi.infrastructure.repository.PostRepository;
 import com.openclassrooms.mddapi.shared.application.unitofwork.BasicUnitOfWork;
 import com.openclassrooms.mddapi.shared.application.unitofwork.UseCaseUnitOfWork;

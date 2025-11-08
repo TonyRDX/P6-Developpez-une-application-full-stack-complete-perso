@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.domain.model;
+package com.openclassrooms.mddapi.infrastructure.persistence;
 
 import java.time.Instant;
 

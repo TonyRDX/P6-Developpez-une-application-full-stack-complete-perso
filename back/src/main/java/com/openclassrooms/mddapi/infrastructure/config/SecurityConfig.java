@@ -50,7 +50,7 @@ public class SecurityConfig {
             .authorizeExchange(exchange -> exchange
                 .pathMatchers("/api/users/subscribe").permitAll()
                 .pathMatchers("/api/users/login").permitAll()
-                .anyExchange().authenticated()
+                .anyExchange().permitAll()
             ).oauth2ResourceServer(oauth2 -> oauth2.jwt())
             .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
             .formLogin(ServerHttpSecurity.FormLoginSpec::disable)

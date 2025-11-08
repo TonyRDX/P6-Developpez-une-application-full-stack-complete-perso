@@ -1,0 +1,28 @@
+:host, :host nav {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+}
+
+:host nav *{
+    margin: 10px;
+}
+
+img {
+    vertical-align: middle;
+    height: 100%;
+    width: auto; 
+    object-fit: contain;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+.active {
+  color: #007bff;
+  font-weight: bold;
+}
