@@ -5,11 +5,12 @@ import { BehaviorSubject, combineLatest, map } from 'rxjs';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { PostCardComponent } from 'src/app/components/post-card/post-card.component';
 import { MatButtonModule  } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-feed',
   templateUrl: './feed.component.html',
-  imports: [MatIconModule, CommonModule, PostCardComponent, MatButtonModule],
+  imports: [MatIconModule, CommonModule, PostCardComponent, MatButtonModule, RouterModule],
   styleUrls: ['./feed.component.scss'],
   standalone: true
 })

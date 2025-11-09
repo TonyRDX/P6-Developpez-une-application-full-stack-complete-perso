@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  feedUrl: "http://localhost:8080/api/feed"
+  feedUrl: "http://localhost:8080/api/feed",
+  topicUrl: "http://localhost:8080/api/topics",
+  postUrl: "http://localhost:8080/api/posts"
 };
 
 /*

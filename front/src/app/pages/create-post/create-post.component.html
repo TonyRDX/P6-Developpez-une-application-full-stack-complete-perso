@@ -1,0 +1,36 @@
+<div>
+  <mat-icon class="back" link [routerLink]="['/feed']">{{'west'}}</mat-icon>
+  <h2 class="title">Créer un article</h2>
+</div>
+
+<form #f="ngForm" (ngSubmit)="onSubmit()">
+  <select
+    id="topic"
+    name="topic"
+    [(ngModel)]="formData.topic_id"
+    required
+  >
+    <option value="" disabled selected>Choisir un thème</option>
+    <option *ngFor="let topic of topics | async" [value]="topic.id">{{ topic.title }}</option>
+  </select>
+
+  <input
+    id="title"
+    name="title"
+    [(ngModel)]="formData.title"
+    required
+    placeholder="Entrez un titre"
+  />
+
+  <textarea
+    id="content"
+    name="content"
+    [(ngModel)]="formData.content"
+    required
+    placeholder="Écris ton contenu ici..."
+    rows="5"
+  ></textarea>
+
+  <button type="submit" [disabled]="f.invalid">Envoyer</button>
+  <span class="error-message" style="color:red" *ngIf="failed">Failed. Please retry.</span>
+</form>

@@ -1,0 +1,41 @@
+:host {
+  display: block;
+  width: 95vw;
+  justify-self: center;
+}
+
+:host div {
+  display: flex;
+  align-items: center;       /* aligne verticalement */
+  justify-content: center;   /* centre horizontalement le contenu */
+  position: relative;
+}
+
+.back  {
+  position: absolute;
+  left: 0;
+}
+
+.title {
+  text-align: center;
+  justify-self: center;
+  vertical-align: middle;
+  margin: 0;
+}
+
+form {
+  display: grid;
+  width: 70%;
+  justify-self: center;
+}
+
+form * {
+  margin: 10px;
+}
+
+.header, .header nav {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
