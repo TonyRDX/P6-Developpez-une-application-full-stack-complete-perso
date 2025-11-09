@@ -1,4 +1,4 @@
-:host, :host nav {
+.header, .header nav {
     display: flex;
     align-content: center;
     align-items: center;
@@ -6,7 +6,7 @@
     height: 60px;
 }
 
-:host nav *{
+.header nav *{
     margin: 10px;
 }
 
@@ -25,4 +25,15 @@ a {
 .active {
   color: #007bff;
   font-weight: bold;
+}
+
+hr {
+  height: 1px;
+  background-color: rgba(0, 0, 0, 1);
+  margin: 8px 0;
+  width: 100%;
+}
+
+:host {
+    display: block;
 }

@@ -1,5 +1,12 @@
-<div class="center">
-  <div class="feed" *ngFor="let post of feed$ | async">
-    <post-card [post]="post"></post-card>
-  </div>
+<div class="action-bar">
+  <button mat-button>Créer un article</button>
+  <th (click)="toggleSort()" style="cursor: pointer;">
+    Créé le
+    <mat-icon>
+        {{ (sortDirection$ | async) === 'asc' ? 'arrow_upward' : 'arrow_downward' }}
+    </mat-icon>
+  </th>
+</div>
+<div class="feed">
+  <post-card [post]="post" *ngFor="let post of sortedItems$ | async"></post-card>
 </div>

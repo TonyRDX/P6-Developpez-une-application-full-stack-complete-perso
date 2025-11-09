@@ -3,7 +3,6 @@ import { Post } from "src/app/core/models/Post";
 import { input } from '@angular/core';
 import { RouterModule } from "@angular/router";
 
-
 @Component({
   selector: 'header',
   standalone: true,

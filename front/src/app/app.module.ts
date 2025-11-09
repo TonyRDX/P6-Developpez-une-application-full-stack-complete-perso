@@ -15,7 +15,6 @@ import { TopicComponent } from './pages/topics/topics.component';
   declarations: [
     AppComponent, 
     HomeComponent, 
-    FeedComponent,
     TopicComponent
   ],
   imports: [
@@ -25,6 +24,7 @@ import { TopicComponent } from './pages/topics/topics.component';
     BrowserAnimationsModule,
     MatButtonModule,
     PostCardComponent,
+    FeedComponent,
     HeaderComponent
   ],
   providers: [],

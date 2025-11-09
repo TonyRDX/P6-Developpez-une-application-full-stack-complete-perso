@@ -1,14 +1,35 @@
-.center {
+.feed {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin: 10px;
-}
-
-post-card {
-  margin: 5px;
+  gap: 20px;
+  width:100%;
+  margin-top: 20px;
 }
 
 header {
   height: 60px;
 }
+
+:host {
+  display:block;
+  width: 95vw;
+  justify-self: center;
+}
+
+.action-bar {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.action-bar * {
+  vertical-align: middle;
+}
+
+div button {
+  background-color:#7763c5;
+  color: white;
+}
+
