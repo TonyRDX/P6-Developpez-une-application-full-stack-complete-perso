@@ -48,7 +48,10 @@ public class TopicService {
                     sub.setTopicId(topicId);
                     sub.setUserId(userId);
                     return subscriptionRepository.save(sub);
-            }))
-            ;
+            }));
+    }
+
+    public Mono<Subscription> unsubscribe(Integer topicId, Integer userId) {
+        return subscriptionRepository.deleteByTopicIdAndUserId(topicId, userId);
     }
 }

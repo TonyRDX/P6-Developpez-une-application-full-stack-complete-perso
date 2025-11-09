@@ -10,4 +10,5 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface SubscriptionRepository extends ReactiveCrudRepository<Subscription, Integer> {
     Mono<Subscription> findByTopicIdAndUserId(Integer topicId, Integer userId);
+    Mono<Subscription> deleteByTopicIdAndUserId(Integer topicId, Integer userId);
 }
