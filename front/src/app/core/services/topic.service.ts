@@ -8,14 +8,14 @@ import { Topic } from '../models/Topic';
 @Injectable({
   providedIn: 'root',
 })
-export class TopicService implements OnDestroy {
+export class TopicService {
+  getFeed() {
+    throw new Error('Method not implemented.');
+  }
   private http = inject(HttpClient);
-  private zone = inject(NgZone);
 
   private readonly feedUrl = environment.topicUrl;
-
   private readonly flux$ = new BehaviorSubject<Topic[]>([]);
-  private eventSource?: EventSource;
 
   loadInitialData(): void {
     this.http.get<Topic[]>(this.feedUrl).pipe(
@@ -32,7 +32,4 @@ export class TopicService implements OnDestroy {
     return this.flux$.asObservable();
   }
 
-  ngOnDestroy(): void {
-    this.eventSource?.close();
-  }
 }

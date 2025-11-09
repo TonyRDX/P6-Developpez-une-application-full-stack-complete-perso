@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FeedComponent } from './pages/feed/feed.component';
 import { HeaderComponent } from './components/header/header.component';
 import { TopicComponent } from './pages/topics/topics.component';
+import { TopicCardComponent } from './components/topic-card/topic-card.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { TopicComponent } from './pages/topics/topics.component';
     BrowserAnimationsModule,
     MatButtonModule,
     PostCardComponent,
+    TopicCardComponent,
     FeedComponent,
     HeaderComponent
   ],

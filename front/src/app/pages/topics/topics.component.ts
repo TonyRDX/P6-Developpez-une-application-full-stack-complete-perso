@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FeedService } from 'src/app/core/services/feed.service';
-import { PostCardComponent } from 'src/app/components/post-card/post-card.component';
+import { TopicCardComponent } from 'src/app/components/topic-card/topic-card.component';
+import { TopicService } from 'src/app/core/services/topic.service';
 
 @Component({
   selector: 'app-topic',
@@ -10,16 +11,11 @@ import { PostCardComponent } from 'src/app/components/post-card/post-card.compon
 export class TopicComponent implements OnInit {
   constructor() {}
 
-  private feedService: FeedService = inject(FeedService);
-
-  protected feed$ = this.feedService.getFeed();
-
   ngOnInit(): void {}
 
   start() {
-    alert('Commencez par lire le README et à vous de jouer !');
   }
 
-  post1 = {id: 1, title: "Titre 1", content: "contenu de l'article"};
-
+  private topicService: TopicService = inject(TopicService);
+  protected topics$ = this.topicService.getTopics();
 }
