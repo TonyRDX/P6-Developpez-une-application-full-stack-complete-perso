@@ -19,6 +19,8 @@ public class Topic implements Entity {
 
     @Column("created_at")
     private Instant createdAt;
+    @Column("user_id")
+    private Integer userId;
 
     public Integer getId() {
         return id;
@@ -50,5 +52,13 @@ public class Topic implements Entity {
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public boolean isSubscribed() {
+        return (this.userId != null);
     }
 }

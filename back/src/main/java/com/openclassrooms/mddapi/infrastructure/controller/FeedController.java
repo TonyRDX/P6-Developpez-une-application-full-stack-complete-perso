@@ -40,8 +40,6 @@ public class FeedController {
 
     @Autowired
     private ReactiveUserContext userContext;
-    @Autowired
-    private UserService userService;
 
     public FeedController(PostService postService, FeedService feedService) {
         this.postService = postService;

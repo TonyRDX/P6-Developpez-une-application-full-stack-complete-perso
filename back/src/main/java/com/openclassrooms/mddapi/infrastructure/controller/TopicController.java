@@ -1,8 +1,11 @@
 package com.openclassrooms.mddapi.infrastructure.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openclassrooms.mddapi.application.service.TopicService;
 import com.openclassrooms.mddapi.domain.model.Topic;
 import com.openclassrooms.mddapi.infrastructure.dto.AddTopicRequest;
+import com.openclassrooms.mddapi.infrastructure.service.ReactiveUserContext;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -20,6 +24,8 @@ import reactor.core.publisher.Mono;
 public class TopicController {
 
     private final TopicService topicService;
+    @Autowired
+    private ReactiveUserContext userContext;
 
     public TopicController(TopicService topicService) {
         this.topicService = topicService;
@@ -36,6 +42,13 @@ public class TopicController {
 
     @GetMapping
     public Flux<Topic> get() {
-        return topicService.getAll();
+        return userContext.getUserId().flatMapMany(userId -> topicService.getAll(userId));
+    }
+
+    @PutMapping("/{topicId}/subscription")
+    public Mono<Object> subscribe(@PathVariable Integer topicId) {
+        return userContext.getUserId().flatMap(userId -> 
+            topicService.subscribe(topicId, userId)
+        );
     }
 }
