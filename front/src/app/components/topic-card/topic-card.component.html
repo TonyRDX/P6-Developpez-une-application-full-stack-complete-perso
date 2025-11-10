@@ -1,2 +1,11 @@
-<span><b>{{ topic().title }}</b><br>
-<span>{{ topic().content }}</span>
+<div><b>{{ topic().title }}</b></div><br>
+<div>{{ topic().content }}</div><br>
+<div class="subscribe-container">
+    <button 
+        mat-raised-button 
+        color="primary" 
+        [disabled]="topic().subscribed"
+        (click)="onSubscribeClick()"> 
+        {{ topic().subscribed ? 'Déjà abonné' : "S'abonner" }}
+    </button>
+</div>

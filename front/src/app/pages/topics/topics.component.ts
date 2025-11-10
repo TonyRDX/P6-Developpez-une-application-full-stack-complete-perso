@@ -18,4 +18,9 @@ export class TopicComponent implements OnInit {
 
   private topicService: TopicService = inject(TopicService);
   protected topics$ = this.topicService.getTopics();
+
+  onSubscribe(topicId: number) {
+    console.log(topicId);
+    this.topicService.subscribe(topicId).subscribe();
+  }
 }

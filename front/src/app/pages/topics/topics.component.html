@@ -1,3 +1,7 @@
 <div class="topics">
-  <topic-card [topic]="topic" *ngFor="let topic of topics$ | async"></topic-card>
+  <topic-card 
+    [topic]="topic" 
+    (subscribed)="onSubscribe($event)" 
+    *ngFor="let topic of topics$ | async">
+  </topic-card>
 </div>
