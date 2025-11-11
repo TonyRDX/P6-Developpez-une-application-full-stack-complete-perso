@@ -74,12 +74,11 @@ public class FeedController {
                             .event("post")
                             .data(post)
                             .build()
-            );
- 
-        return Flux.merge(posts, heartbeat)
-            .doOnSubscribe(sub -> System.out.println("info: [SSE] client connected"))
+            ).doOnSubscribe(sub -> System.out.println("info: [SSE] client connected"))
             .doOnCancel(() -> System.out.println("info: [SSE] client disconnected"))
             .doOnComplete(() -> System.out.println("warn: [SSE] stream completed (should NOT happen)"))
             .doOnError(err -> System.out.println("error: [SSE] stream error" + err.getMessage()));
-        }
+ 
+        return Flux.merge(posts, heartbeat);
+    }
 }
