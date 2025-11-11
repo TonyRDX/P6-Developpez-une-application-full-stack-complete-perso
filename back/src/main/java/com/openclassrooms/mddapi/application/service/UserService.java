@@ -15,9 +15,8 @@ public class UserService {
             2, List.of(3)
     );
 
-    public Mono<List<Integer>> getTopics(Mono<Integer> userId) {
-        return userId
-            .flatMap(id -> Mono.justOrEmpty(topicsByUser.get(id)))
+    public Mono<List<Integer>> getTopics(Integer userId) {
+        return Mono.justOrEmpty(topicsByUser.get(userId))
             .defaultIfEmpty(List.of());
     }
 }

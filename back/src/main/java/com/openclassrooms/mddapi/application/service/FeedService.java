@@ -39,7 +39,7 @@ public class FeedService {
         );
     }
 
-    public Flux<PostSse> liveForUser(Mono<Integer> userId) {
+    public Flux<PostSse> liveForUser(Integer userId) {
         return userService.getTopics(userId)
                 .map(List::copyOf)
                 .flatMapMany(topics ->

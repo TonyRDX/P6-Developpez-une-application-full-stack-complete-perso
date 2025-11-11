@@ -46,13 +46,15 @@ public class FeedController {
 
     @GetMapping
     public Flux<SinglePostFeed> getFeed() {
-        GetFeedQuery getFeedQuery = new GetFeedQuery(
-            userContext.getUserId(),
-            true
-        );
-
-        return this.feedService.getFeed(getFeedQuery)
-            .map(this::formatPost);
+        return userContext.getUserId()
+            .flatMapMany((userId) -> {
+                GetFeedQuery getFeedQuery = new GetFeedQuery(
+                    userId,
+                    true
+                );
+                return this.feedService.getFeed(getFeedQuery)
+                    .map(this::formatPost);
+            });
     }
 
     private SinglePostFeed formatPost(Post post) {
@@ -67,18 +69,22 @@ public class FeedController {
 
     @GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ServerSentEvent<PostSse>> stream() {
-        Mono<Integer> userIdMono = userContext.getUserId();
-        Flux<ServerSentEvent<PostSse>> posts = feedService.liveForUser(userIdMono)
+        Mono<Integer> userIdMono = userContext.getUserId() 
+            .switchIfEmpty(Mono.error(new IllegalStateException("No user id")));
+
+        Flux<ServerSentEvent<PostSse>> posts = userIdMono
+            .flatMapMany(feedService::liveForUser)
             .map(post ->
-                    ServerSentEvent.<PostSse>builder()
-                            .event("post")
-                            .data(post)
-                            .build()
-            ).doOnSubscribe(sub -> System.out.println("info: [SSE] client connected"))
-            .doOnCancel(() -> System.out.println("info: [SSE] client disconnected"))
-            .doOnComplete(() -> System.out.println("warn: [SSE] stream completed (should NOT happen)"))
-            .doOnError(err -> System.out.println("error: [SSE] stream error" + err.getMessage()));
- 
+                        ServerSentEvent.<PostSse>builder()
+                                .event("post")
+                                .data(post)
+                                .build()
+                ).doOnSubscribe(sub -> System.out.println("info: [SSE] client connected"))
+                .doOnCancel(() -> System.out.println("info: [SSE] client disconnected"))
+                .doOnComplete(() -> System.out.println("warn: [SSE] stream completed (should NOT happen)"))
+                .doOnError(err -> System.out.println("error: [SSE] stream error" + err.getMessage())
+            );
+
         return Flux.merge(posts, heartbeat);
     }
 }
