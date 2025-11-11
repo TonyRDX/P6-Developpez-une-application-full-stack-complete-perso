@@ -1,7 +1,7 @@
 <div class="topics">
   <topic-card 
     [topic]="topic" 
-    [subscribeMode]=true
+    [subscribeMode]=false
     (clicked)="onSubscribe($event)" 
     *ngFor="let topic of topics$ | async">
   </topic-card>

@@ -4,8 +4,12 @@
     <button 
         mat-raised-button 
         color="primary" 
-        [disabled]="topic().subscribed"
-        (click)="onSubscribeClick()"> 
-        {{ topic().subscribed ? 'Déjà abonné' : "S'abonner" }}
+        [disabled]="topic().subscribed && subscribeMode()"
+        (click)="onClick()"> 
+        {{ 
+            subscribeMode() 
+                ? (topic().subscribed ? "Déjà abonné" : "S'abonner")
+                : "Se désabonner"
+        }}
     </button>
 </div>

@@ -14,8 +14,9 @@ import { MatButtonModule } from "@angular/material/button";
 })
 export class TopicCardComponent {
   topic = input.required<Topic>();
-  @Output() subscribed = new EventEmitter<number>();
-  onSubscribeClick() {
-    this.subscribed.emit(this.topic().id);
+  subscribeMode = input.required<boolean>();
+  @Output() clicked = new EventEmitter<number>();
+  onClick() {
+    this.clicked.emit(this.topic().id);
   }
 }

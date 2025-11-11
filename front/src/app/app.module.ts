@@ -11,12 +11,14 @@ import { FeedComponent } from './pages/feed/feed.component';
 import { HeaderComponent } from './components/header/header.component';
 import { TopicComponent } from './pages/topics/topics.component';
 import { TopicCardComponent } from './components/topic-card/topic-card.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
     AppComponent, 
     HomeComponent, 
-    TopicComponent
+    TopicComponent,
+    ProfileComponent 
   ],
   imports: [
     BrowserModule,

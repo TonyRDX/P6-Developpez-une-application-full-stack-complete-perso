@@ -1,4 +1,4 @@
-.header, .header nav {
+.header, .header nav, .img-profile {
     display: flex;
     align-content: center;
     align-items: center;
@@ -6,7 +6,7 @@
     height: 60px;
 }
 
-.header nav *{
+.header nav a {
     margin: 10px;
 }
 
