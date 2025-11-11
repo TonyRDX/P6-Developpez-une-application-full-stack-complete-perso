@@ -1,7 +1,6 @@
 package com.openclassrooms.mddapi.infrastructure.controller;
 
 import java.time.Duration;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.openclassrooms.mddapi.application.service.FeedService;
 import com.openclassrooms.mddapi.application.service.PostService;
-import com.openclassrooms.mddapi.application.service.UserService;
 import com.openclassrooms.mddapi.application.usecase.getfeed.GetFeedQuery;
 import com.openclassrooms.mddapi.infrastructure.dto.SinglePostFeed;
 import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostSse;
@@ -78,6 +76,10 @@ public class FeedController {
                             .build()
             );
  
-        return Flux.merge(posts, heartbeat);
-    }
+        return Flux.merge(posts, heartbeat)
+            .doOnSubscribe(sub -> System.out.println("info: [SSE] client connected"))
+            .doOnCancel(() -> System.out.println("info: [SSE] client disconnected"))
+            .doOnComplete(() -> System.out.println("warn: [SSE] stream completed (should NOT happen)"))
+            .doOnError(err -> System.out.println("error: [SSE] stream error" + err.getMessage()));
+        }
 }
