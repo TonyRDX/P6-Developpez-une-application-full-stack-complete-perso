@@ -32,12 +32,20 @@ export class TopicService {
     return this.flux$.asObservable();
   }
 
-  subscribe(topicId: number): Observable<boolean> {
-    return this.http.put(this.topicUrl + "/" + topicId + "/subscription", "").pipe(
-        map(() => true),
+  subscribe(topicId: number): void {
+    this.http.put(this.topicUrl + "/" + topicId + "/subscription", "").pipe(
+        map(() => {
+            const currentTopics = this.flux$.getValue();
+
+            const updatedTopics = currentTopics.map(topic =>
+              topic.id === topicId ? { ...topic, subscribed: true } : topic
+            );
+
+            this.flux$.next(updatedTopics);
+        }),
         catchError(() => {
           return of(false);
-        }));
+        })).subscribe();
   }
 
 }

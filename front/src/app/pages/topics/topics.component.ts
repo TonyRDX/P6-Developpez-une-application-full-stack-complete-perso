@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FeedService } from 'src/app/core/services/feed.service';
 import { TopicCardComponent } from 'src/app/components/topic-card/topic-card.component';
 import { TopicService } from 'src/app/core/services/topic.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-topic',
@@ -20,7 +21,6 @@ export class TopicComponent implements OnInit {
   protected topics$ = this.topicService.getTopics();
 
   onSubscribe(topicId: number) {
-    console.log(topicId);
-    this.topicService.subscribe(topicId).subscribe();
+    this.topicService.subscribe(topicId);
   }
 }
