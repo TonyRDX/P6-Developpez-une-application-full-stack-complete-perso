@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FeedService } from './core/services/feed.service';
 import { TopicService } from './core/services/topic.service';
 import { AuthService } from './core/services/auth.service';
-import { concat } from 'rxjs';
+import { merge } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,7 @@ export class AppComponent {
   private authService: AuthService = inject(AuthService);
 
   ngOnInit(): void {
-    this.authService.postLoginEffect = () => concat(
+    this.authService.postLoginEffect = () => merge(
       this.feedService.loadInitialData(),
       this.topicService.loadInitialData()
     );
