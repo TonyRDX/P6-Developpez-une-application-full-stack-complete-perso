@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, NgZone, OnDestroy } from '@angular/core';
+import { inject, Injectable,} from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, filter, map, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Topic } from '../models/Topic';
+import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TopicService {
+export class TopicService extends BaseService {
   getFeed() {
     throw new Error('Method not implemented.');
   }
@@ -18,7 +19,7 @@ export class TopicService {
   private readonly flux$ = new BehaviorSubject<Topic[]>([]);
 
   loadInitialData(): void {
-    this.http.get<Topic[]>(this.topicUrl).pipe(
+    this.http.get<Topic[]>(this.topicUrl, {headers: this.getHeaders()}).pipe(
       tap((posts) => this.flux$.next(posts)),
       catchError((err) => {
         console.error('[TopicService] loadInitialData error', JSON.stringify(err));
@@ -40,7 +41,8 @@ export class TopicService {
   }
 
   subscribe(topicId: number): void {
-    this.http.put(this.topicUrl + "/" + topicId + "/subscription", "").pipe(
+    this.http.put(this.topicUrl + "/" + topicId + "/subscription", 
+                  "", {headers: this.getHeaders()}).pipe(
         map(() => {
             const currentTopics = this.flux$.getValue();
 
@@ -56,7 +58,7 @@ export class TopicService {
   }
 
   unsubscribe(topicId: number): void {
-    this.http.delete(this.topicUrl + "/" + topicId + "/subscription").pipe(
+    this.http.delete(this.topicUrl + "/" + topicId + "/subscription", {headers: this.getHeaders()}).pipe(
         map(() => {
             const currentTopics = this.flux$.getValue();
 

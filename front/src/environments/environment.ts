@@ -6,7 +6,10 @@ export const environment = {
   production: false,
   feedUrl: "http://localhost:8080/api/feed",
   topicUrl: "http://localhost:8080/api/topics",
-  postUrl: "http://localhost:8080/api/posts"
+  postUrl: "http://localhost:8080/api/posts",
+  loginUrl: "http://localhost:8080/api/auth/login",
+  registerUrl: "http://localhost:8080/api/auth/register",
+  logoutUrl: "http://localhost:8080/api/auth/logout"
 };
 
 /*

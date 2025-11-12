@@ -3,16 +3,15 @@ package com.openclassrooms.mddapi.infrastructure.controller;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.openclassrooms.mddapi.domain.model.User;
+import com.openclassrooms.mddapi.infrastructure.dto.AuthResponse;
 import com.openclassrooms.mddapi.infrastructure.dto.LoginRequest;
 import com.openclassrooms.mddapi.infrastructure.dto.SubsribeUserRequest;
-import com.openclassrooms.mddapi.infrastructure.dto.AuthResponse;
 import com.openclassrooms.mddapi.infrastructure.dto.UserResponse;
 import com.openclassrooms.mddapi.infrastructure.repository.UserRepository;
 import com.openclassrooms.mddapi.infrastructure.service.JwtService;
@@ -20,7 +19,7 @@ import com.openclassrooms.mddapi.infrastructure.service.JwtService;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/auth")
 @CrossOrigin(origins = "http://localhost:4200") 
 public class UserController {
     private final UserRepository userRepository;
@@ -37,7 +36,7 @@ public class UserController {
         this.jwtService = jwtService;
     }
 
-    @PostMapping("/subscribe")
+    @PostMapping("/register")
     public Mono<UserResponse> subscribeUser(@RequestBody SubsribeUserRequest request) {
         User newUser = new User();
         newUser.setEmail(request.email());
@@ -48,7 +47,7 @@ public class UserController {
             .map(this::userToResponse);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public Mono<AuthResponse> loginUser(@RequestBody LoginRequest request) {
         return userRepository.findByEmail(request.email())
             .switchIfEmpty(Mono.error(new BadCredentialsException("Invalid credentials")))

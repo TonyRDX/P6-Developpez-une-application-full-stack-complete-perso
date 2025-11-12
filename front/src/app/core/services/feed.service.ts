@@ -1,16 +1,19 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable, NgZone, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Post } from '../models/Post';
+import { BaseService } from './base.service';
+import { SseClient } from 'ngx-sse-client';
+
 
 @Injectable({
   providedIn: 'root',
 })
-export class FeedService implements OnDestroy {
+export class FeedService extends BaseService implements OnDestroy {
   private http = inject(HttpClient);
-  private zone = inject(NgZone);
+  private sseClient = inject(SseClient);
 
   private readonly feedUrl = environment.feedUrl;
   private readonly feedStreamUrl = `${this.feedUrl}/stream`;
@@ -19,7 +22,7 @@ export class FeedService implements OnDestroy {
   private eventSource?: EventSource;
 
   loadInitialData(): void {
-    this.http.get<Post[]>(this.feedUrl).pipe(
+    this.http.get<Post[]>(this.feedUrl, { headers: this.getHeaders() }).pipe(
       tap((posts) => this.feed$.next(posts)),
       catchError((err) => {
         console.error('[FeedService] loadInitialData error', JSON.stringify(err));
@@ -35,22 +38,23 @@ export class FeedService implements OnDestroy {
     if (this.eventSource) {
       return;
     }
+    this.sseClient.stream(this.feedStreamUrl, 
+      {},
+      { headers: this.getHeaders() }
+    ).subscribe((event) => {
+      if (event.type !== 'error') {
+        const messageEvent = event as MessageEvent;
+        const newPost: Post = JSON.parse(messageEvent.data);
 
-    this.eventSource = new EventSource(this.feedStreamUrl);
-
-    this.eventSource.addEventListener("post", event => {
-      this.zone.run(() => {
-        const newPost: Post = JSON.parse(event.data);
         const updated = [newPost, ...this.feed$.value];
-
         this.feed$.next(updated);
-        console.log('[FeedService] nouveau post reçu', newPost);
-      });
-    });
 
-    this.eventSource.onerror = (error) => {
-      console.error('[FeedService] SSE error', error);
-    };
+        console.info(`SSE request with type "${messageEvent.type}" and data "${messageEvent.data}"`);
+      }  else {
+        const errorEvent = event as ErrorEvent;
+        console.error(errorEvent.error, errorEvent.message);
+      }
+    });
   }
 
   getFeed(): Observable<Post[]> {
