@@ -27,12 +27,11 @@ export class AppComponent {
       this.topicService.resetData()
     );
 
-    this.authService.login({
-          "email": "a",
-          "name": "b",
-          "password": "pw123456789"
-        })
-      .subscribe();
+    // this.authService.login({
+    //       "identifier": "a",
+    //       "password": "pw123456789"
+    //     })
+    //   .subscribe();
   }
 
 }

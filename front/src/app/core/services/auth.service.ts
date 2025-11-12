@@ -32,7 +32,8 @@ export class AuthService {
             this.setToken(e.token);
             return true;
           }),
-          switchMap(() => this.postLoginEffect().pipe(map(() => true)))
+          switchMap(() => this.postLoginEffect().pipe(map(() => true))),
+          catchError(err => of(false))
     );
   }
 

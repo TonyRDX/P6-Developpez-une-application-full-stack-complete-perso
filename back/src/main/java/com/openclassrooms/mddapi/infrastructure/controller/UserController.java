@@ -49,7 +49,7 @@ public class UserController {
 
     @PostMapping("/login")
     public Mono<AuthResponse> loginUser(@RequestBody LoginRequest request) {
-        return userRepository.findByEmail(request.email())
+        return userRepository.findByEmail(request.identifier())
             .switchIfEmpty(Mono.error(new BadCredentialsException("Invalid credentials")))
             .filter(user -> passwordEncoder.matches(request.password(), user.getPassword()))
             .switchIfEmpty(Mono.error(new BadCredentialsException("Invalid credentials")))
