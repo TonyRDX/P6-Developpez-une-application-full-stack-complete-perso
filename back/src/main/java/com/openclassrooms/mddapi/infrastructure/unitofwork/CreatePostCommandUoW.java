@@ -45,10 +45,9 @@ public class CreatePostCommandUoW implements UseCaseUnitOfWork<CreatePostCommand
             .doOnSuccess(saved -> {
                     this.postPublisher.publish(
                         new PostSse(
-                            saved.getId(), 
-                            saved.getTitle(), 
-                            saved.getContent(), 
-                            saved.getTopicId()
+                            saved.getId(),
+                            saved.getTopicId(),
+                            saved.getAuthorId()
                         )
                     );
                 });

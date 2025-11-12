@@ -4,8 +4,9 @@ import java.time.Instant;
 
 public record SinglePostFeed (
     Integer id,
-    String author,
     String title,
     String content,
-    Instant created_at
+    String author_name,
+    Instant created_at,
+    Integer topic_id
 ){}

@@ -14,7 +14,6 @@ import com.openclassrooms.mddapi.application.service.FeedService;
 import com.openclassrooms.mddapi.application.service.PostService;
 import com.openclassrooms.mddapi.application.usecase.getfeed.GetFeedQuery;
 import com.openclassrooms.mddapi.infrastructure.dto.SinglePostFeed;
-import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostSse;
 import com.openclassrooms.mddapi.infrastructure.persistence.Post;
 import com.openclassrooms.mddapi.infrastructure.service.ReactiveUserContext;
 
@@ -28,9 +27,9 @@ public class FeedController {
     private final PostService postService;
     private final FeedService feedService;
 
-    private final Flux<ServerSentEvent<PostSse>> heartbeat =
+    private final Flux<ServerSentEvent<SinglePostFeed>> heartbeat =
         Flux.interval(Duration.ofSeconds(15))
-            .map(tick -> ServerSentEvent.<PostSse>builder()
+            .map(tick -> ServerSentEvent.<SinglePostFeed>builder()
                     .event("ping")
                     .comment("keep-alive")
                     .build()
@@ -52,34 +51,35 @@ public class FeedController {
                     userId,
                     true
                 );
-                return this.feedService.getFeed(getFeedQuery)
-                    .map(this::formatPost);
+                return this.feedService.getFeed(getFeedQuery);
             });
     }
 
     private SinglePostFeed formatPost(Post post) {
         return new SinglePostFeed(
             post.getId(),
-            post.getAuthorId().toString(),
             post.getTitle(),
             post.getContent(),
-            post.getCreatedAt()
+            post.getAuthorId().toString(),
+            post.getCreatedAt(),
+            post.getTopicId()
         );
     }
 
     @GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<ServerSentEvent<PostSse>> stream() {
+    public Flux<ServerSentEvent<SinglePostFeed>> stream() {
         Mono<Integer> userIdMono = userContext.getUserId() 
             .switchIfEmpty(Mono.error(new IllegalStateException("No user id")));
 
-        Flux<ServerSentEvent<PostSse>> posts = userIdMono
+        Flux<ServerSentEvent<SinglePostFeed>> posts = userIdMono
             .flatMapMany(feedService::liveForUser)
             .map(post ->
-                        ServerSentEvent.<PostSse>builder()
-                                .event("post")
-                                .data(post)
-                                .build()
-                ).doOnSubscribe(sub -> System.out.println("info: [SSE] client connected"))
+                    ServerSentEvent.<SinglePostFeed>builder()
+                            .event("post")
+                            .data(post)
+                            .build()
+                )
+                .doOnSubscribe(sub -> System.out.println("info: [SSE] client connected"))
                 .doOnCancel(() -> System.out.println("info: [SSE] client disconnected"))
                 .doOnComplete(() -> System.out.println("warn: [SSE] stream completed (should NOT happen)"))
                 .doOnError(err -> System.out.println("error: [SSE] stream error" + err.getMessage())

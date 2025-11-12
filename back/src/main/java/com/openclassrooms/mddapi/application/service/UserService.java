@@ -9,7 +9,6 @@ import reactor.core.publisher.Mono;
 
 @Service
 public class UserService {
-
     private static final Map<Integer, List<Integer>> topicsByUser = Map.of(
             1, List.of(1, 2),
             2, List.of(3)
