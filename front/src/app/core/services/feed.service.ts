@@ -18,8 +18,15 @@ export class FeedService extends BaseService implements OnDestroy {
   private readonly feedUrl = environment.feedUrl;
   private readonly feedStreamUrl = `${this.feedUrl}/stream`;
 
-  private readonly feed$ = new BehaviorSubject<Post[]>([]);
+  private readonly flux$ = new BehaviorSubject<Post[]>([]);
   private eventSource?: EventSource;
+
+  resetData(): Observable<void> {
+    return new Observable<void>(subscriber => {
+      this.flux$.next([]); 
+      subscriber.complete();
+    });
+  }
 
   loadInitialData(): Observable<unknown> {
     return concat(this.fetchData(), this.openSse());
@@ -27,10 +34,10 @@ export class FeedService extends BaseService implements OnDestroy {
 
   private fetchData(): Observable<unknown> {
     return this.http.get<Post[]>(this.feedUrl, { headers: this.getHeaders() }).pipe(
-        tap((posts) => this.feed$.next(posts)),
+        tap((posts) => this.flux$.next(posts)),
         catchError((err) => {
           console.error('[FeedService] loadInitialData error', JSON.stringify(err));
-          this.feed$.next([]);
+          this.flux$.next([]);
           return of(null);
         })
       )
@@ -47,8 +54,8 @@ export class FeedService extends BaseService implements OnDestroy {
           const messageEvent = event as MessageEvent;
           const newPost: Post = JSON.parse(messageEvent.data);
 
-          const updated = [newPost, ...this.feed$.value];
-          this.feed$.next(updated);
+          const updated = [newPost, ...this.flux$.value];
+          this.flux$.next(updated);
 
           console.info(`SSE request with type "${messageEvent.type}" and data "${messageEvent.data}"`);
         }  else {
@@ -60,7 +67,7 @@ export class FeedService extends BaseService implements OnDestroy {
   }
 
   getFeed(): Observable<Post[]> {
-    return this.feed$.asObservable();
+    return this.flux$.asObservable();
   }
 
   ngOnDestroy(): void {

@@ -1,7 +1,7 @@
 <div class="header">
     <img src="assets/logo_p6.png">
-    <nav>
-        <a routerLink="/logout" routerLinkActive="active">Se déconnecter</a>
+    <nav *ngIf="isLogged() | async">
+        <button mat-button (click)="onLogout()" is>Se déconnecter</button>
         <a routerLink="/feed" routerLinkActive="active">Articles</a>
         <a routerLink="/topics" routerLinkActive="active">Thèmes</a>
         <a routerLink="/profile" routerLinkActive #rla="routerLinkActive">

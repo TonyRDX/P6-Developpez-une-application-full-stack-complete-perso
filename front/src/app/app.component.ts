@@ -22,6 +22,11 @@ export class AppComponent {
       this.topicService.loadInitialData()
     );
 
+    this.authService.postLogoutEffect = () => merge(
+      this.feedService.resetData(),
+      this.topicService.resetData()
+    );
+
     this.authService.login({
           "email": "a",
           "name": "b",

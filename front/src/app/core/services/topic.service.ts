@@ -18,6 +18,13 @@ export class TopicService extends BaseService {
   private readonly topicUrl = environment.topicUrl;
   private readonly flux$ = new BehaviorSubject<Topic[]>([]);
 
+  resetData(): Observable<void> {
+    return new Observable<void>(subscriber => {
+      this.flux$.next([]); 
+      subscriber.complete();
+    });
+  }
+
   loadInitialData(): Observable<unknown> {
     return this.http.get<Topic[]>(this.topicUrl, {headers: this.getHeaders()}).pipe(
       tap((posts) => this.flux$.next(posts)),

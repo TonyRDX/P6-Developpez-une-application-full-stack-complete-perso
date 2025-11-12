@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
@@ -29,21 +29,33 @@ export class AuthService {
   login(body: any): Observable<boolean> {
     return this.http.post<LoginResponse>(this.loginUrl, body, { withCredentials: true }).pipe(
           map(e => {
-            localStorage.setItem('token', e.token);
+            this.setToken(e.token);
             return true;
           }),
           switchMap(() => this.postLoginEffect().pipe(map(() => true)))
     );
   }
 
-  logout(body: any): Observable<boolean> {
-    return this.http.post<LoginResponse>(this.loginUrl, body, { withCredentials: true }).pipe(
-      map((e => {
-          localStorage.setItem('token', e.token);
-          return true;
-      })
-    ));
+  logout(): void {
+    this.removeToken();
+    this.postLogoutEffect().subscribe();
   }
+
+  setToken(token: string): void {
+    localStorage.setItem('token', token);
+    this.isLogged$.next(true);
+  }
+
+  removeToken(): void {
+    localStorage.removeItem('token');
+    this.isLogged$.next(false);
+  }
+
+  isLogged(): Observable<boolean> {
+    return this.isLogged$.asObservable();
+  }
+
+  private isLogged$ = new BehaviorSubject<boolean>(false);
 }
 
 interface LoginResponse {
