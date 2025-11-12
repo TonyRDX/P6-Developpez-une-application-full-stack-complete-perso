@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { inject, Injectable, NgZone, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, concat, Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Post } from '../models/Post';
@@ -21,40 +21,42 @@ export class FeedService extends BaseService implements OnDestroy {
   private readonly feed$ = new BehaviorSubject<Post[]>([]);
   private eventSource?: EventSource;
 
-  loadInitialData(): void {
-    this.http.get<Post[]>(this.feedUrl, { headers: this.getHeaders() }).pipe(
-      tap((posts) => this.feed$.next(posts)),
-      catchError((err) => {
-        console.error('[FeedService] loadInitialData error', JSON.stringify(err));
-        this.feed$.next([]);
-        return of([] as Post[]);
-      })
-    ).subscribe();
-
-    this.openSse();
+  loadInitialData(): Observable<unknown> {
+    return concat(this.fetchData(), this.openSse());
   }
 
-  private openSse(): void {
-    if (this.eventSource) {
-      return;
-    }
-    this.sseClient.stream(this.feedStreamUrl, 
+  private fetchData(): Observable<unknown> {
+    return this.http.get<Post[]>(this.feedUrl, { headers: this.getHeaders() }).pipe(
+        tap((posts) => this.feed$.next(posts)),
+        catchError((err) => {
+          console.error('[FeedService] loadInitialData error', JSON.stringify(err));
+          this.feed$.next([]);
+          return of(null);
+        })
+      )
+  }
+
+  private openSse(): Observable<unknown> {
+    return this.sseClient.stream(this.feedStreamUrl, 
       {},
       { headers: this.getHeaders() }
-    ).subscribe((event) => {
-      if (event.type !== 'error') {
-        const messageEvent = event as MessageEvent;
-        const newPost: Post = JSON.parse(messageEvent.data);
+    )
+    .pipe(
+      tap(event => {
+        if (event.type !== 'error') {
+          const messageEvent = event as MessageEvent;
+          const newPost: Post = JSON.parse(messageEvent.data);
 
-        const updated = [newPost, ...this.feed$.value];
-        this.feed$.next(updated);
+          const updated = [newPost, ...this.feed$.value];
+          this.feed$.next(updated);
 
-        console.info(`SSE request with type "${messageEvent.type}" and data "${messageEvent.data}"`);
-      }  else {
-        const errorEvent = event as ErrorEvent;
-        console.error(errorEvent.error, errorEvent.message);
-      }
-    });
+          console.info(`SSE request with type "${messageEvent.type}" and data "${messageEvent.data}"`);
+        }  else {
+          const errorEvent = event as ErrorEvent;
+          console.error(errorEvent.error, errorEvent.message);
+        }
+      })
+    )
   }
 
   getFeed(): Observable<Post[]> {

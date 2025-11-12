@@ -18,15 +18,15 @@ export class TopicService extends BaseService {
   private readonly topicUrl = environment.topicUrl;
   private readonly flux$ = new BehaviorSubject<Topic[]>([]);
 
-  loadInitialData(): void {
-    this.http.get<Topic[]>(this.topicUrl, {headers: this.getHeaders()}).pipe(
+  loadInitialData(): Observable<unknown> {
+    return this.http.get<Topic[]>(this.topicUrl, {headers: this.getHeaders()}).pipe(
       tap((posts) => this.flux$.next(posts)),
       catchError((err) => {
         console.error('[TopicService] loadInitialData error', JSON.stringify(err));
         this.flux$.next([]);
         return of([] as Topic[]);
       })
-    ).subscribe();
+    );
   }
 
   getTopics(): Observable<Topic[]> {

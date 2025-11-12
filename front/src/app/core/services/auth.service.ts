@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,6 +11,7 @@ export class AuthService {
   protected http = inject(HttpClient);
   // easy to implements, and is useful to load data before login end
   public postLoginEffect: () => Observable<unknown> = () => of(null);
+  public postLogoutEffect: () => Observable<unknown> = () => of(null);
 
   private readonly registerUrl = environment.registerUrl;
   private readonly loginUrl = environment.loginUrl;
@@ -26,6 +27,16 @@ export class AuthService {
   }
 
   login(body: any): Observable<boolean> {
+    return this.http.post<LoginResponse>(this.loginUrl, body, { withCredentials: true }).pipe(
+          map(e => {
+            localStorage.setItem('token', e.token);
+            return true;
+          }),
+          switchMap(() => this.postLoginEffect().pipe(map(() => true)))
+    );
+  }
+
+  logout(body: any): Observable<boolean> {
     return this.http.post<LoginResponse>(this.loginUrl, body, { withCredentials: true }).pipe(
       map((e => {
           localStorage.setItem('token', e.token);
