@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { inject, Injectable, OnInit } from '@angular/core';
+import { BehaviorSubject, concat, Observable, of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
@@ -42,18 +42,31 @@ export class AuthService {
     this.postLogoutEffect().subscribe();
   }
 
-  setToken(token: string): void {
+  tryReloadAuth(): void {
+    let hasValidToken: boolean = this.getIsLogged();
+    this.isLogged$.next(hasValidToken);
+    if (hasValidToken) this.postLoginEffect().subscribe();
+  }
+
+  private setToken(token: string): void {
     localStorage.setItem('token', token);
     this.isLogged$.next(true);
   }
 
-  removeToken(): void {
+  private removeToken(): void {
     localStorage.removeItem('token');
     this.isLogged$.next(false);
   }
 
-  isLogged(): Observable<boolean> {
+  getIsLogged$(): Observable<boolean> {
     return this.isLogged$.asObservable();
+  }
+
+  getIsLogged(): boolean {
+    let token: string | null = localStorage.getItem('token');
+    if (token === null) return false;
+    let payload: any = JSON.parse(atob(token.split('.')[1]));
+    return payload.exp < Date.now();
   }
 
   private isLogged$ = new BehaviorSubject<boolean>(false);

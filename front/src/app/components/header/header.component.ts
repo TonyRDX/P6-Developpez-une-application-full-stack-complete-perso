@@ -24,6 +24,6 @@ export class HeaderComponent {
   }
 
   isLogged(): Observable<boolean> {
-    return this.authService.isLogged();
+    return this.authService.getIsLogged$();
   }
 }

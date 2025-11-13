@@ -27,6 +27,8 @@ export class AppComponent {
       this.topicService.resetData()
     );
 
+    this.authService.tryReloadAuth();
+
     // this.authService.login({
     //       "identifier": "a",
     //       "password": "pw123456789"
