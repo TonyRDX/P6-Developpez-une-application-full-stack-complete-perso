@@ -1,0 +1,7 @@
+<div>
+  <mat-icon class="back" link [routerLink]="['/feed']">{{'west'}}</mat-icon>
+</div>
+
+<b>{{ (post$ | async)?.title }}</b><br>
+Le <b>{{ (post$ | async)?.created_at }}</b> par <b>{{ (post$ | async)?.author_name }}</b> dans le thème <b>{{ (topic$ | async)?.title }}</b><br>
+{{ (post$ | async)?.content }}

@@ -4,4 +4,5 @@ export interface Post {
     content: string;
     author_name: string;
     created_at: Date;
+    topic_id: number;
 }
