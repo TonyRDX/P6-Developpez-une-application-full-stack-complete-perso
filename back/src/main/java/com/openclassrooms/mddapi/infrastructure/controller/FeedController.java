@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.openclassrooms.mddapi.application.service.FeedService;
-import com.openclassrooms.mddapi.application.service.PostService;
 import com.openclassrooms.mddapi.application.usecase.getfeed.GetFeedQuery;
 import com.openclassrooms.mddapi.infrastructure.dto.SinglePostFeed;
 import com.openclassrooms.mddapi.infrastructure.persistence.Post;
@@ -24,7 +23,6 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/api/feed")
 @CrossOrigin(origins = "http://localhost:4200") 
 public class FeedController {
-    private final PostService postService;
     private final FeedService feedService;
 
     private final Flux<ServerSentEvent<SinglePostFeed>> heartbeat =
@@ -38,8 +36,7 @@ public class FeedController {
     @Autowired
     private ReactiveUserContext userContext;
 
-    public FeedController(PostService postService, FeedService feedService) {
-        this.postService = postService;
+    public FeedController(FeedService feedService) {
         this.feedService = feedService;
     }
 

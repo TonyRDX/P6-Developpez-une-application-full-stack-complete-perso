@@ -8,7 +8,6 @@ import com.openclassrooms.mddapi.application.usecase.getpost.GetPostByIdQuery;
 import com.openclassrooms.mddapi.application.usecase.getpost.GetPostByIdQueryHandler;
 import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostPublisher;
 import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostUnitOfWork;
-import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostUnitOfWork.UoWContextImpl;
 import com.openclassrooms.mddapi.infrastructure.persistence.Post;
 import com.openclassrooms.mddapi.infrastructure.repository.PostRepository;
 import com.openclassrooms.mddapi.shared.application.unitofwork.BasicUnitOfWork;
@@ -20,14 +19,11 @@ import reactor.core.scheduler.Schedulers;
 @Component
 public class GetByIdHandler implements MessageHandler<GetPostByIdQuery, Post>{
     private final PostRepository postRepository;
-    private final PostPublisher postPublisher;
 
     public GetByIdHandler(
-        PostRepository postRepository,
-        PostPublisher postPublisher
+        PostRepository postRepository
     ) {
         this.postRepository = postRepository;
-        this.postPublisher = postPublisher;
     }
 
     @Override
