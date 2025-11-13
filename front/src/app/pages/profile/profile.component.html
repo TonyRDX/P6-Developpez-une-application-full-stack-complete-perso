@@ -1,8 +1,46 @@
+<div>
+  <mat-icon class="back" link [routerLink]="['/feed']">{{'west'}}</mat-icon>
+  <h2 class="title">Profil utilisateur</h2>
+</div>
+
+<form #f="ngForm" (ngSubmit)="onSubmitUser()">
+  <input
+    id="email"
+    name="email"
+    required
+    [(ngModel)]="formData.email"
+    required
+    placeholder="Entrez un email"
+  />
+
+  <input
+    id="username"
+    name="username"
+    required
+    [(ngModel)]="formData.name"
+    required
+    placeholder="Entrez un username"
+  />
+
+  <input
+    id="password"
+    name="password"
+    type="password"
+    [(ngModel)]="formData.password"
+    placeholder="**********"
+  />
+
+  <button type="submit" [disabled]="f.invalid">Envoyer</button>
+  <span class="error-message" style="color:red" *ngIf="failed">Failed. Please retry.</span>
+</form>
+
+<hr>
+<h2 class="title">Abonnements</h2>
 <div class="topics">
   <topic-card 
+    *ngFor="let topic of topics$ | async"
     [topic]="topic" 
     [subscribeMode]=false
-    (clicked)="onSubscribe($event)" 
-    *ngFor="let topic of topics$ | async">
+    (clicked)="onUnsubscribe($event)">
   </topic-card>
 </div>

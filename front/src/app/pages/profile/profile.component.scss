@@ -12,3 +12,12 @@
   justify-self: center;
 }
 
+form {
+  display: grid;
+  width: 70%;
+  justify-self: center;
+}
+
+form * {
+  margin: 10px;
+}

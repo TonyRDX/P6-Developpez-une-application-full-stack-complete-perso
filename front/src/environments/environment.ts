@@ -9,7 +9,8 @@ export const environment = {
   postUrl: "http://localhost:8080/api/posts",
   loginUrl: "http://localhost:8080/api/auth/login",
   registerUrl: "http://localhost:8080/api/auth/register",
-  logoutUrl: "http://localhost:8080/api/auth/logout"
+  logoutUrl: "http://localhost:8080/api/auth/logout",
+  meUrl: "http://localhost:8080/api/me"
 };
 
 /*

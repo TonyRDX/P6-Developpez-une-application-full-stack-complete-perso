@@ -18,8 +18,7 @@ import { LoginComponent } from './pages/login/login.component';
   declarations: [
     AppComponent, 
     HomeComponent, 
-    TopicComponent,
-    ProfileComponent
+    TopicComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +30,8 @@ import { LoginComponent } from './pages/login/login.component';
     TopicCardComponent,
     FeedComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
+    ProfileComponent
   ],
   providers: [],
   bootstrap: [AppComponent],
