@@ -4,4 +4,24 @@
 
 <b>{{ (post$ | async)?.title }}</b><br>
 Le <b>{{ (post$ | async)?.created_at }}</b> par <b>{{ (post$ | async)?.author_name }}</b> dans le thème <b>{{ (topic$ | async)?.title }}</b><br>
-{{ (post$ | async)?.content }}
+{{ (post$ | async)?.content }}<br>
+
+<hr>
+
+<div class="comments">
+  <comment-card 
+    *ngFor="let comment of comments$ | async"
+    [comment]="comment">
+  </comment-card>
+</div>
+
+<form #f="ngForm" (ngSubmit)="submitComment()">
+  <textarea
+    name="content"
+    [(ngModel)]="content"
+    required
+    placeholder="Votre message..."
+  ></textarea>
+
+  <button type="submit" [disabled]="!f.valid">Envoyer</button>
+</form>

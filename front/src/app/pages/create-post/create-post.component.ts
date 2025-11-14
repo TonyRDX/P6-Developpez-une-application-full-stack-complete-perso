@@ -45,7 +45,6 @@ export class CreatePostComponent implements OnInit {
         } )
     )
     .subscribe();
-    console.log('Formulaire envoyé :', this.formData);
   }
 
 }

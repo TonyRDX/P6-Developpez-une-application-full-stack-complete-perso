@@ -1,29 +1,31 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FeedService } from 'src/app/core/services/feed.service';
 import { TopicService } from 'src/app/core/services/topic.service';
+import { CommentService } from 'src/app/core/services/comment.service';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import { combineLatest, filter, map, Observable, zip } from 'rxjs';
+import { combineLatest, filter, map, Observable, switchMap, take, zip } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { Topic } from 'src/app/core/models/Topic';
 import { Post } from 'src/app/core/models/Post';
+import { CommentCardComponent } from 'src/app/components/comment-card/comment-card.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss'],
-  imports: [ CommonModule, MatButtonModule, RouterModule, MatIconModule],
+  imports: [ CommonModule, MatButtonModule, FormsModule, RouterModule, MatIconModule, CommentCardComponent],
   standalone: true
 })
 export class PostComponent {
 
-  constructor(private route: ActivatedRoute) {
-
-  }
+  constructor(private route: ActivatedRoute) {}
 
   private topicService: TopicService = inject(TopicService);
   private feedService: FeedService = inject(FeedService);
+  private commentService: CommentService = inject(CommentService);
   protected topics$ = this.topicService.getTopics();
   protected feed$ = this.feedService.getFeed();
   protected post$ = combineLatest([this.route.paramMap, this.feed$]).pipe(
@@ -41,7 +43,23 @@ export class PostComponent {
       filter((topic): topic is Topic => topic !== null)
     );
 
+  protected comments$ = this.post$.pipe(
+    switchMap((post) => this.commentService.getComments(post.id)),
+  );
+
   onSubscribe(topicId: number) {
     this.topicService.subscribe(topicId);
+  }
+
+  content = '';
+
+  submitComment() {
+    this.route.paramMap.pipe(
+      take(1), 
+      switchMap((params) => this.commentService.addComment(
+        Number(params.get('id')), 
+        {content: this.content}
+      )
+    )).subscribe();
   }
 }

@@ -13,6 +13,7 @@ import { TopicComponent } from './pages/topics/topics.component';
 import { TopicCardComponent } from './components/topic-card/topic-card.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { LoginComponent } from './pages/login/login.component';
+import { CommentCardComponent } from './components/comment-card/comment-card.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { LoginComponent } from './pages/login/login.component';
     FeedComponent,
     HeaderComponent,
     LoginComponent,
+    CommentCardComponent,
     ProfileComponent
   ],
   providers: [],

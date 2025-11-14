@@ -44,3 +44,20 @@ CREATE TABLE subscriptions (
         REFERENCES topics(id)
         ON DELETE CASCADE
 );
+
+CREATE TABLE comments (
+    id INT NOT NULL AUTO_INCREMENT,
+    content TEXT NOT NULL,
+    user_id INT NOT NULL,
+    post_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_comment_post
+        FOREIGN KEY (post_id)
+        REFERENCES posts(id)
+        ON DELETE CASCADE,
+    CONSTRAINT fk_comment_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+);
