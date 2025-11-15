@@ -20,6 +20,13 @@ public interface TopicRepository extends ReactiveCrudRepository<Topic, Integer> 
     """)
     Flux<Topic> findAllWithUserId(Integer userId);
     @Query("""
+        SELECT * FROM topics t
+        INNER JOIN subscriptions s 
+            ON s.topic_id = t.id
+            AND s.user_id = :userId
+    """)
+    Flux<Topic> findSubscribedByUserId(Integer userId);
+    @Query("""
     SELECT * FROM topics t
     LEFT JOIN subscriptions s
         ON s.topic_id = t.id

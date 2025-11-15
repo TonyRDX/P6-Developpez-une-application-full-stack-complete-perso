@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.mddapi.application.usecase.getfeed.GetFeedQuery;
+import com.openclassrooms.mddapi.domain.model.Topic;
 import com.openclassrooms.mddapi.domain.model.User;
 import com.openclassrooms.mddapi.infrastructure.dto.SinglePostFeed;
 import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostPublisher;
 import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostSse;
 import com.openclassrooms.mddapi.infrastructure.persistence.Post;
 import com.openclassrooms.mddapi.infrastructure.repository.PostRepository;
+import com.openclassrooms.mddapi.infrastructure.repository.TopicRepository;
 import com.openclassrooms.mddapi.infrastructure.repository.UserRepository;
 
 import reactor.core.publisher.Flux;
@@ -18,39 +20,45 @@ import reactor.core.publisher.Mono;
 
 @Service
 public class FeedService {
-
     private final PostPublisher postPublisher;
     private final UserService userService;
+    private final TopicService topicService;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final TopicRepository topicRepository;
 
     public FeedService(
         PostPublisher postPublisher, 
         PostRepository postRepository, 
         UserRepository userRepository, 
-        UserService userService
+        TopicRepository topicRepository, 
+        UserService userService,
+        TopicService topicService
     ) {
         this.postPublisher = postPublisher;
         this.userService = userService;
+        this.topicService = topicService;
         this.postRepository = postRepository;
+        this.topicRepository = topicRepository;
         this.userRepository = userRepository;
     }
 
     public Flux<SinglePostFeed> getFeed(GetFeedQuery getFeedQuery) {
-        return userService.getTopics(getFeedQuery.userId())
-            .flatMapMany(ids ->
-            ids.isEmpty() ?
-                Flux.empty() : 
-                postRepository.findAllByTopicIdIn(ids)
-        )
-        .flatMap(post -> {
-            return this.toSinglePostFeed(post);
-        });
+        return topicRepository.findSubscribedByUserId(getFeedQuery.userId())
+            .map(Topic::getId)
+            .collectList()
+            .flatMapMany(ids -> 
+                ids.isEmpty()
+                    ? Flux.empty()
+                    : postRepository.findAllByTopicIdIn(ids)
+            )
+            .flatMap(this::toSinglePostFeed);
     }
 
     public Flux<SinglePostFeed> liveForUser(Integer userId) {
-        return userService.getTopics(userId)
-                .map(List::copyOf)
+        return topicRepository.findSubscribedByUserId(userId)
+                .map(Topic::getId)
+                .collectList()
                 .flatMapMany(topics ->
                         postPublisher.flux()
                                 .filter(post -> topics.contains(post.topic_id()))
