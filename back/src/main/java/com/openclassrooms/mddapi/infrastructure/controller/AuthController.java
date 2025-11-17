@@ -21,12 +21,12 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = "http://localhost:4200") 
-public class UserController {
+public class AuthController {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     
-    public UserController(
+    public AuthController(
             UserRepository userRepository,
             PasswordEncoder passwordEncoder,
             JwtService jwtService
@@ -36,8 +36,22 @@ public class UserController {
         this.jwtService = jwtService;
     }
 
+    private static final String PASSWORD_REGEX =
+        "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!?.*(){}\\[\\]\\-_/])(?=\\S+$).{8,}$";
+
+    public boolean isValidPassword(String password) {
+        return password != null && password.matches(PASSWORD_REGEX);
+    }
+
     @PostMapping("/register")
     public Mono<UserResponse> subscribeUser(@RequestBody SubsribeUserRequest request) {
+        if (!isValidPassword(request.password())) {
+            return Mono.error(new IllegalArgumentException(
+                    "Le mot de passe doit contenir au moins 8 caractères, " +
+                    "une majuscule, une minuscule, un chiffre et un caractère spécial."
+            ));
+        }
+        
         User newUser = new User();
         newUser.setEmail(request.email());
         newUser.setName(request.name());
@@ -49,8 +63,11 @@ public class UserController {
 
     @PostMapping("/login")
     public Mono<AuthResponse> loginUser(@RequestBody LoginRequest request) {
-        return userRepository.findByEmail(request.identifier())
-            .switchIfEmpty(Mono.error(new BadCredentialsException("Invalid credentials")))
+        Mono<User> userMono = userRepository.findByEmail(request.identifier())
+            .switchIfEmpty(userRepository.findByName(request.identifier()))
+            .switchIfEmpty(Mono.error(new BadCredentialsException("Invalid credentials")));
+
+        return userMono
             .filter(user -> passwordEncoder.matches(request.password(), user.getPassword()))
             .switchIfEmpty(Mono.error(new BadCredentialsException("Invalid credentials")))
             .map(user -> new AuthResponse(jwtService.generateToken(user)));
