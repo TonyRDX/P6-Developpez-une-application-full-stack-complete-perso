@@ -1,11 +1,15 @@
-.center {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+.btn-bordered {
+  border: 1px solid #000; 
 }
 
-post-card {
-  margin: 5px;
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  justify-self: center;
+}
+
+.div-button {
+  display: flex;
+  justify-content: space-evenly;
 }

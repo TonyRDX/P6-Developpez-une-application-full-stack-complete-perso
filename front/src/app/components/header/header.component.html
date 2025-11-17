@@ -1,6 +1,6 @@
-<div class="header">
+<div class="header" *ngIf="isActive$ | async">
     <img src="assets/logo_p6.png">
-    <nav *ngIf="isLogged() | async">
+    <nav *ngIf="isLogged$ | async">
         <button mat-button (click)="onLogout()" is>Se déconnecter</button>
         <a routerLink="/feed" routerLinkActive="active">Articles</a>
         <a routerLink="/topics" routerLinkActive="active">Thèmes</a>

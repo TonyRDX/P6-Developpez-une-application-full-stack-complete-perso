@@ -31,7 +31,7 @@ export class RegisterComponent {
   onSubmit() {
     this.authService.register(this.formData).pipe(
       tap((success) => {
-          if (success) {this.router.navigate(['/feed'])} 
+          if (success) {this.router.navigate(['/login'])} 
           else {this.failed = true;}
         })
     )

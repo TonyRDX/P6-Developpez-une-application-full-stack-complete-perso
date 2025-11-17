@@ -15,7 +15,6 @@ const routes: Routes = [
     path: '',
     canActivate: [authGuard],
     children: [
-      { path: '', component: HomeComponent },
       { path: 'feed', component: FeedComponent },
       { path: 'topics', component: TopicComponent },
       { path: 'create-post', component: CreatePostComponent },
@@ -23,6 +22,7 @@ const routes: Routes = [
       { path: 'post/:id', component: PostComponent },
     ],
   },
+  { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent }
 ];

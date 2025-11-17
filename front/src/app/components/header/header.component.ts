@@ -2,10 +2,10 @@ import { Component, inject, Input } from "@angular/core";
 import { CommonModule, AsyncPipe } from  '@angular/common';
 import { Post } from "src/app/core/models/Post";
 import { input } from '@angular/core';
-import { Router, RouterModule } from "@angular/router";
+import { NavigationEnd, Router, RouterModule } from "@angular/router";
 import { MatButtonModule } from "@angular/material/button";
 import { AuthService } from "src/app/core/services/auth.service";
-import { Observable } from "rxjs";
+import { filter, map, Observable, of, switchMap } from "rxjs";
 
 @Component({
   selector: 'header',
@@ -23,7 +23,10 @@ export class HeaderComponent {
     this.router.navigate(['/login']);
   }
 
-  isLogged(): Observable<boolean> {
-    return this.authService.getIsLogged$();
-  }
+  isLogged$ = this.authService.getIsLogged$();
+
+  isActive$ = this.router.events.pipe(
+    filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+    map(event => !event.urlAfterRedirects.startsWith('/home')),
+  );
 }

@@ -8,6 +8,6 @@ export const authGuard: CanActivateFn = () => {
   const router = inject(Router);
 
   return auth.getIsLogged$().pipe(
-    map((isLogged: boolean) => isLogged || router.parseUrl('/login'))
+    map((isLogged: boolean) => isLogged || router.parseUrl('/home'))
   );
 };
