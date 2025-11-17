@@ -22,5 +22,11 @@
   />
 
   <button type="submit" [disabled]="f.invalid">Envoyer</button>
-  <span class="error-message" style="color:red" *ngIf="failed">Failed. Please retry.</span>
+  <span class="error-message" style="color:red" *ngIf="failed">
+            Echec. Vérifier votre identifiant, et votre mot de passe doit respecter ces règles : <br>
+            - minimum 8 caractères, <br>
+            - un chiffre <br>
+            - une minuscule <br>
+            - une majuscule <br>
+            - un caractère spécial</span>
 </form>
