@@ -21,3 +21,9 @@ form {
 form * {
   margin: 10px;
 }
+
+@media (max-aspect-ratio: 3/4) {
+  .topics {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
