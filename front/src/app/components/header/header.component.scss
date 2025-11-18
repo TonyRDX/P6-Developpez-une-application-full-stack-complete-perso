@@ -31,9 +31,14 @@ hr {
   height: 1px;
   background-color: rgba(0, 0, 0, 1);
   margin: 8px 0;
-  width: 100%;
 }
 
 :host {
     display: block;
+}
+
+@media (max-aspect-ratio: 3/4) {
+  :host {
+    display: none;
+  }
 }
