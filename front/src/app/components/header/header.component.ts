@@ -18,8 +18,15 @@ export class HeaderComponent {
   private authService: AuthService = inject(AuthService);
   constructor(private router: Router) {}
 
+  isMenuOpen = false;
+
+  toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
   onLogout() {
     this.authService.logout();
+    this.isMenuOpen = false;
     this.router.navigate(['/login']);
   }
 

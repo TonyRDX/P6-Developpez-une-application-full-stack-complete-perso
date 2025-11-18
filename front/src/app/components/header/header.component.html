@@ -1,13 +1,33 @@
 <div class="header" *ngIf="isActive$ | async">
     <img src="assets/logo_p6.png">
-    <nav *ngIf="isLogged$ | async">
-        <button mat-button (click)="onLogout()" is>Se déconnecter</button>
-        <a routerLink="/feed" routerLinkActive="active">Articles</a>
-        <a routerLink="/topics" routerLinkActive="active">Thèmes</a>
-        <a routerLink="/profile" routerLinkActive #rla="routerLinkActive">
-            <img class="img-profile" [src]="rla.isActive ? 'assets/active_profile.png' : 'assets/default_profile.png'">
-        </a>
-    </nav>
+    
+    <ng-container *ngIf="isLogged$ | async">
+        <button
+            class="burger"
+            (click)="toggleMenu()"
+            [class.burger--open]="isMenuOpen"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="overlay" 
+            [class.overlay-open]="isMenuOpen"
+            (click)="toggleMenu()"></div>
+
+        <nav [class.nav-open]="isMenuOpen">
+            <button mat-button (click)="onLogout()">Se déconnecter</button>
+            <a routerLink="/feed" routerLinkActive="active">Articles</a>
+            <a routerLink="/topics" routerLinkActive="active">Thèmes</a>
+            <a class="profile-button" routerLink="/profile" routerLinkActive #rla="routerLinkActive">
+                <img
+                class="img-profile"
+                [src]="rla.isActive ? 'assets/active_profile.png' : 'assets/default_profile.png'"
+                >
+            </a>
+        </nav>
+  </ng-container>
 </div>
 <hr *ngIf="isActive$ | async">
 

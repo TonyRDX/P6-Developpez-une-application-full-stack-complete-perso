@@ -39,6 +39,129 @@ hr {
 
 @media (max-aspect-ratio: 3/4) {
   :host {
-    display: none;
+    // display: none;
   }
+}
+
+
+
+/* burger caché par défaut (desktop) */
+.burger {
+  display: none;
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* barres du burger */
+.burger span {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  height: 2px;
+  background: #000;
+  border-radius: 999px;
+  transition: transform 0.2s ease, top 0.2s ease, opacity 0.2s ease;
+}
+
+.burger span:nth-child(1) {
+  top: 9px;
+}
+.burger span:nth-child(2) {
+  top: 15px;
+}
+.burger span:nth-child(3) {
+  top: 21px;
+}
+
+/* état "ouvert" du burger → croix */
+.burger--open span:nth-child(1) {
+  top: 15px;
+  transform: rotate(45deg);
+}
+.burger--open span:nth-child(2) {
+  opacity: 0;
+}
+.burger--open span:nth-child(3) {
+  top: 15px;
+  transform: rotate(-45deg);
+}
+
+/* Mobile */
+@media (max-aspect-ratio: 3/4) {
+  .burger {
+    display: block;
+  }
+
+  .header {
+    position: relative;
+    z-index: 1001;
+  }
+
+  .header nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+
+    width: 260px;                /* << largeur du menu */
+    max-width: 80vw;             /* sécurité sur petits écrans */
+
+    background: white;
+    border-left: 1px solid #ccc;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: normal;
+    align-items: end;
+    padding: 16px;
+
+    transform: translateX(100%); /* caché hors écran */
+    transition: transform .25s ease;
+
+    z-index: 1002; /* au-dessus de l’overlay */
+  }
+
+  /* nav visible quand .nav-open est présent */
+  .header nav.nav-open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .header nav a,
+  .header nav button {
+    margin: 4px 0;
+  }
+
+  .header > img {
+    height: 40px;
+  }
+
+  .header nav a.profile-button {
+    margin-top: auto; 
+    margin-bottom: 30px;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4); /* gris foncé transparent */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+  z-index: 1000; /* sous le menu */
+}
+
+.overlay-open {
+  opacity: 1;
+  pointer-events: auto;
 }
