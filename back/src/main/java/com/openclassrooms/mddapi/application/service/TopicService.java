@@ -4,8 +4,8 @@ import java.time.Instant;
 
 import org.springframework.stereotype.Service;
 
-import com.openclassrooms.mddapi.domain.model.Topic;
 import com.openclassrooms.mddapi.infrastructure.persistence.Subscription;
+import com.openclassrooms.mddapi.infrastructure.persistence.Topic;
 import com.openclassrooms.mddapi.infrastructure.repository.SubscriptionRepository;
 import com.openclassrooms.mddapi.infrastructure.repository.TopicRepository;
 

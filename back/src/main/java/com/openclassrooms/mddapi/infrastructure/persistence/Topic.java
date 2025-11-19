@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.domain.model;
+package com.openclassrooms.mddapi.infrastructure.persistence;
 
 import java.time.Instant;
 
@@ -8,19 +8,19 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import com.openclassrooms.mddapi.shared.domain.model.Entity;
 
-
-@Table("users")
-public class User implements Entity {
+@Table("topics")
+public class Topic implements Entity {
 
     @Id
     private Integer id;
 
-    private String email;
-    private String name;
-    private String password;
-    
+    private String title;
+    private String content;
+
     @Column("created_at")
     private Instant createdAt;
+    @Column("user_id")
+    private Integer userId;
 
     public Integer getId() {
         return id;
@@ -30,28 +30,20 @@ public class User implements Entity {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email;
+    public String getTitle() {
+        return title;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getName() {
-        return name;
+    public String getContent() {
+        return content;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Instant getCreatedAt() {
@@ -60,5 +52,13 @@ public class User implements Entity {
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public boolean isSubscribed() {
+        return (this.userId != null);
     }
 }

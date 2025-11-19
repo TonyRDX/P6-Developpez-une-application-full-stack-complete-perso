@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.openclassrooms.mddapi.application.service.CommentService;
-import com.openclassrooms.mddapi.domain.model.User;
 import com.openclassrooms.mddapi.infrastructure.dto.AddCommentRequest;
 import com.openclassrooms.mddapi.infrastructure.dto.CommentResponse;
 import com.openclassrooms.mddapi.infrastructure.persistence.Comment;
+import com.openclassrooms.mddapi.infrastructure.persistence.User;
 import com.openclassrooms.mddapi.infrastructure.repository.CommentRepository;
 import com.openclassrooms.mddapi.infrastructure.repository.UserRepository;
 import com.openclassrooms.mddapi.infrastructure.service.ReactiveUserContext;

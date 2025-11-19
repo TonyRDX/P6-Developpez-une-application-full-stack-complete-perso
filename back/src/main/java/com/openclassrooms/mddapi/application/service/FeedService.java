@@ -1,16 +1,14 @@
 package com.openclassrooms.mddapi.application.service;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.mddapi.application.usecase.getfeed.GetFeedQuery;
-import com.openclassrooms.mddapi.domain.model.Topic;
-import com.openclassrooms.mddapi.domain.model.User;
 import com.openclassrooms.mddapi.infrastructure.dto.SinglePostFeed;
 import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostPublisher;
 import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostSse;
 import com.openclassrooms.mddapi.infrastructure.persistence.Post;
+import com.openclassrooms.mddapi.infrastructure.persistence.Topic;
+import com.openclassrooms.mddapi.infrastructure.persistence.User;
 import com.openclassrooms.mddapi.infrastructure.repository.PostRepository;
 import com.openclassrooms.mddapi.infrastructure.repository.TopicRepository;
 import com.openclassrooms.mddapi.infrastructure.repository.UserRepository;

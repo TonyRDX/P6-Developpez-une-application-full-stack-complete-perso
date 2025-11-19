@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openclassrooms.mddapi.domain.model.User;
 import com.openclassrooms.mddapi.infrastructure.dto.AuthResponse;
 import com.openclassrooms.mddapi.infrastructure.dto.LoginRequest;
 import com.openclassrooms.mddapi.infrastructure.dto.SubsribeUserRequest;
 import com.openclassrooms.mddapi.infrastructure.dto.UserResponse;
+import com.openclassrooms.mddapi.infrastructure.persistence.User;
 import com.openclassrooms.mddapi.infrastructure.repository.UserRepository;
 import com.openclassrooms.mddapi.infrastructure.service.JwtService;
 
