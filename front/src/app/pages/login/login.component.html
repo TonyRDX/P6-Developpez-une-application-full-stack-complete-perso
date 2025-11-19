@@ -4,24 +4,31 @@
 </div>
 
 <form #f="ngForm" (ngSubmit)="onSubmit()">
-  <label for="identifier">Email ou nom d'utilisateur</label>
-  <input
-    id="identifier"
-    name="identifier"
-    [(ngModel)]="formData.identifier"
-    required
-  />
-  <label for="password">Mot de passe</label>
-  <input
-    id="password"
-    name="password"
-    type="password"
-    [(ngModel)]="formData.password"
-    required
-    placeholder="*********"
-  />
+  <mat-form-field>
+    <mat-label for="identifier">Email ou nom d'utilisateur</mat-label>
+    <input
+      matInput
+      id="identifier"
+      name="identifier"
+      [(ngModel)]="formData.identifier"
+      required
+    />
+  </mat-form-field>
 
-  <button type="submit" [disabled]="f.invalid">Envoyer</button>
+  <mat-form-field>
+    <mat-label for="password">Mot de passe</mat-label>
+    <input
+      matInput
+      id="password"
+      name="password"
+      type="password"
+      [(ngModel)]="formData.password"
+      required
+      placeholder="*********"
+    />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="f.invalid">Envoyer</button>
   <span class="error-message" style="color:red" *ngIf="failed">
             Echec. Vérifier votre identifiant, et votre mot de passe doit respecter ces règles : <br>
             - minimum 8 caractères, <br>

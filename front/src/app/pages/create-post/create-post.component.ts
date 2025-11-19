@@ -5,6 +5,9 @@ import { BehaviorSubject, catchError, combineLatest, finalize, map, Observable, 
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { PostCardComponent } from 'src/app/components/post-card/post-card.component';
 import { MatButtonModule  } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TopicService } from 'src/app/core/services/topic.service';
@@ -14,7 +17,17 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
-  imports: [MatIconModule, FormsModule, CommonModule, PostCardComponent, MatButtonModule, RouterModule],
+  imports: [
+    FormsModule, 
+    CommonModule, 
+    PostCardComponent, 
+    MatIconModule, 
+    MatButtonModule, 
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    RouterModule
+  ],
   styleUrls: ['./create-post.component.scss'],
   standalone: true
 })

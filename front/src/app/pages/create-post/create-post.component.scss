@@ -32,3 +32,16 @@ form {
 form * {
   margin: 10px;
 }
+
+form > button {
+  width: min-content;
+  justify-self: center;
+}
+
+.mat-form-field-infix {
+  padding-top: 0 !important;
+}
+
+mat-form-field {
+  --mat-form-field-container-vertical-padding: 0px;
+}

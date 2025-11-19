@@ -14,6 +14,7 @@ import { TopicCardComponent } from './components/topic-card/topic-card.component
 import { ProfileComponent } from './pages/profile/profile.component';
 import { LoginComponent } from './pages/login/login.component';
 import { CommentCardComponent } from './components/comment-card/comment-card.component';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,9 @@ import { CommentCardComponent } from './components/comment-card/comment-card.com
     CommentCardComponent,
     ProfileComponent
   ],
-  providers: [],
+  providers: [    
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

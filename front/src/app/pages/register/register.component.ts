@@ -8,11 +8,24 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  imports: [MatIconModule, FormsModule, CommonModule, PostCardComponent, MatButtonModule, RouterModule],
+  imports: [
+    FormsModule, 
+    CommonModule, 
+    PostCardComponent, 
+    MatIconModule, 
+    MatButtonModule, 
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    RouterModule
+  ],
   styleUrls: ['./register.component.scss'],
   standalone: true
 })

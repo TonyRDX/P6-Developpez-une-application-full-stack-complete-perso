@@ -1,41 +1,48 @@
-<div>
-  <mat-icon class="back" link [routerLink]="['/feed']">{{'west'}}</mat-icon>
+<div class="title-bar">
   <h2 class="title">Profil utilisateur</h2>
 </div>
 
 <form #f="ngForm" (ngSubmit)="onSubmitUser()">
-  <input
-    id="email"
-    name="email"
-    required
-    [(ngModel)]="formData.email"
-    required
-    placeholder="Entrez un email"
-  />
+  <mat-form-field>
+    <input matInput
+      id="email"
+      name="email"
+      required
+      [(ngModel)]="formData.email"
+      required
+    />
+  </mat-form-field>
 
-  <input
-    id="username"
-    name="username"
-    required
-    [(ngModel)]="formData.name"
-    required
-    placeholder="Entrez un username"
-  />
+  <mat-form-field>
+    <input matInput
+      id="username"
+      name="username"
+      required
+      [(ngModel)]="formData.name"
+      required
+      placeholder=""
+    />
+  </mat-form-field>
 
-  <input
-    id="password"
-    name="password"
-    type="password"
-    [(ngModel)]="formData.password"
-    placeholder="**********"
-  />
+  <mat-form-field>
+    <mat-label>Nouveau mot de passe (optionnel)</mat-label>
+    <input matInput
+      id="password"
+      name="password"
+      type="password"
+      [(ngModel)]="formData.password"
+    />
+  </mat-form-field>
 
-  <button type="submit" [disabled]="f.invalid">Envoyer</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="f.invalid">Envoyer</button>
   <span class="error-message" style="color:red" *ngIf="failed">Failed. Please retry.</span>
 </form>
 
 <hr>
-<h2 class="title">Abonnements</h2>
+<div class="title-bar">
+  <h2 class="title">Abonnements</h2>
+</div>
+
 <div class="topics">
   <topic-card 
     *ngFor="let topic of topics$ | async"

@@ -29,6 +29,11 @@ form {
   justify-self: center;
 }
 
+form > button {
+  width: min-content;
+  justify-self: center;
+}
+
 form * {
   margin: 10px;
 }

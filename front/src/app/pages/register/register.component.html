@@ -4,30 +4,41 @@
 </div>
 
 <form #f="ngForm" (ngSubmit)="onSubmit()">
-  <label for="email">Email ou nom d'utilisateur</label>
-  <input
-    id="email"
-    name="email"
-    [(ngModel)]="formData.email"
-    required
-  />
-  <label for="name">Nom d'utilisateur</label>
-  <input
-    id="name"
-    name="name"
-    [(ngModel)]="formData.name"
-    required
-  />
-  <label for="password">Mot de passe</label>
-  <input
-    id="password"
-    name="password"
-    type="password"
-    [(ngModel)]="formData.password"
-    required
-    placeholder="*********"
-  />
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input
+      matInput
+      id="email"
+      name="email"
+      [(ngModel)]="formData.email"
+      required
+    />
+  </mat-form-field>
 
-  <button type="submit" [disabled]="f.invalid">Envoyer</button>
+  <mat-form-field>
+    <mat-label>Nom d'utilisateur</mat-label>
+    <input
+      matInput
+      id="name"
+      name="name"
+      [(ngModel)]="formData.name"
+      required
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Mot de passe</mat-label>
+    <input
+      matInput
+      id="password"
+      name="password"
+      type="password"
+      [(ngModel)]="formData.password"
+      required
+      placeholder="*********"
+    />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="f.invalid">Envoyer</button>
   <span class="error-message" style="color:red" *ngIf="failed">Failed. Please retry.</span>
 </form>

@@ -7,3 +7,8 @@ header {
     position: relative;
     z-index: 1000;
 }
+
+:root {
+  --mat-form-field-container-vertical-padding: 0px;
+  --mat-form-field-container-height: 40px; 
+}

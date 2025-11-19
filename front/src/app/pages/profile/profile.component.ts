@@ -1,7 +1,10 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule  } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
 import { tap } from 'rxjs';
 import { TopicCardComponent } from 'src/app/components/topic-card/topic-card.component';
@@ -13,7 +16,16 @@ import { TopicService } from 'src/app/core/services/topic.service';
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
-  imports: [FormsModule, CommonModule, TopicCardComponent, MatIconModule, RouterModule],
+  imports: [
+    FormsModule, 
+    CommonModule, 
+    TopicCardComponent, 
+    RouterModule, 
+    MatButtonModule, 
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule
+  ],
   standalone: true
 })
 export class ProfileComponent implements OnInit {
