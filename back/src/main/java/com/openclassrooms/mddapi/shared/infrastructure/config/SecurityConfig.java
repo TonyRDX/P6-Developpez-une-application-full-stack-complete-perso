@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.infrastructure.config;
+package com.openclassrooms.mddapi.shared.infrastructure.config;
 
 import java.util.List;
 
