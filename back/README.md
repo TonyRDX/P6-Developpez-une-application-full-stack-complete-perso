@@ -1,14 +1,26 @@
 mvn clean spring-boot:run
 
-# Layered architecture
+# Horizontal slice - tech-centric
 
-- Infrastructure - technical concerns
+- **Infrastructure** - technical concerns
     - Controller
     - Service
-    - Others I/O concerns
-- Application - business use cases + tech setup with flux
-    - Service
-- Domain - fully isolated
+    - Others I/O concerns (DB, HTTP, messaging…)
+- **Application** - use cases fully synchronous and without infra details
+    - Use cases (messages + handlers)
+- **Domain** - fully isolated
+
+# Vertical slice - business-centric
+There are currently 2 top-level modules in the app :
+- **shared** : contains cross-cutting concerns, such as authentication or generic interfaces
+- **core** : contains feature-based code, usually grouped around business use cases
+
+Combining with the horizontal slice, the core module contains additional internal sub-structures : 
+- **In core infrastructure**, infrastructure code is also structured by feature.
+    - **Instead of spreading** controllers, DTOs, and mappers across separate global folders, each feature has its own infrastructure area.
+    - **The controller defines** its interaction point, and all supporting infrastructure code (DTOs, handlers, mappers, etc.) is grouped beside it.
+- **In core application**, most application use cases are implemented there. Each use case requires a message and a handler. 
+
 
 TODO : 
 - clear dependencies (I -> A -> D)
