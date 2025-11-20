@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openclassrooms.mddapi.core.application.service.FeedService;
 import com.openclassrooms.mddapi.core.application.usecase.getfeed.GetFeedQuery;
 import com.openclassrooms.mddapi.core.infrastructure.dto.SinglePostFeed;
+import com.openclassrooms.mddapi.core.infrastructure.service.FeedService;
 import com.openclassrooms.mddapi.shared.infrastructure.service.ReactiveUserContext;
 
 import reactor.core.publisher.Flux;

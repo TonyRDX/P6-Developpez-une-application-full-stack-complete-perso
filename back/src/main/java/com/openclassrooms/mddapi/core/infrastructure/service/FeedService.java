@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.core.application.service;
+package com.openclassrooms.mddapi.core.infrastructure.service;
 
 import org.springframework.stereotype.Service;
 

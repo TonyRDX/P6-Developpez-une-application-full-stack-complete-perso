@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.core.application.service;
+package com.openclassrooms.mddapi.core.infrastructure.service;
 
 import java.util.List;
 import java.util.Map;
