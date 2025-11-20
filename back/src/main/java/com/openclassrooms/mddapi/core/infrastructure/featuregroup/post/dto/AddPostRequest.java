@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.core.infrastructure.dto;
+package com.openclassrooms.mddapi.core.infrastructure.featuregroup.post.dto;
 
 public record AddPostRequest (
     String title,
