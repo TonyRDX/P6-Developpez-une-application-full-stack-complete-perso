@@ -38,6 +38,10 @@ Controller --> Handler / Unit of Work --> Application --> Domain
 Purpose: enforce business invariants, improve testability, scalability, and maintainability.
 
 
+# Architecture diagram
+
+![texte alternatif](docs/back%20diagram%20architecture.png)
+
 
 # Misc
 
