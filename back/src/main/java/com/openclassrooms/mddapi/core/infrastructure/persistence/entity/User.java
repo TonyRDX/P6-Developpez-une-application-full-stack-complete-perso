@@ -1,0 +1,64 @@
+package com.openclassrooms.mddapi.core.infrastructure.persistence.entity;
+
+import java.time.Instant;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
+
+import com.openclassrooms.mddapi.shared.domain.model.Entity;
+
+
+@Table("users")
+public class User implements Entity {
+
+    @Id
+    private Integer id;
+
+    private String email;
+    private String name;
+    private String password;
+    
+    @Column("created_at")
+    private Instant createdAt;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+}
