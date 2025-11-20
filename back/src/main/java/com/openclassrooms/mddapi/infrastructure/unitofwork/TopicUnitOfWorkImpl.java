@@ -3,7 +3,7 @@ package com.openclassrooms.mddapi.infrastructure.unitofwork;
 import org.reactivestreams.Publisher;
 import org.springframework.stereotype.Component;
 
-import com.openclassrooms.mddapi.infrastructure.persistence.Topic;
+import com.openclassrooms.mddapi.infrastructure.persistence.entity.Topic;
 import com.openclassrooms.mddapi.shared.application.unitofwork.BasicUnitOfWork;
 
 @Component

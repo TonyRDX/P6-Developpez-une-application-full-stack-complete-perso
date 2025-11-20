@@ -8,7 +8,7 @@ import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.openclassrooms.mddapi.infrastructure.persistence.User;
+import com.openclassrooms.mddapi.infrastructure.persistence.entity.User;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;

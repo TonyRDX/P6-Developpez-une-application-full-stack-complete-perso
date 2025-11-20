@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.openclassrooms.mddapi.infrastructure.dto.MePatch;
 import com.openclassrooms.mddapi.infrastructure.dto.UserResponse;
-import com.openclassrooms.mddapi.infrastructure.persistence.User;
-import com.openclassrooms.mddapi.infrastructure.repository.UserRepository;
+import com.openclassrooms.mddapi.infrastructure.persistence.entity.User;
+import com.openclassrooms.mddapi.infrastructure.persistence.repository.UserRepository;
 import com.openclassrooms.mddapi.infrastructure.service.ReactiveUserContext;
 
 import reactor.core.publisher.Mono;

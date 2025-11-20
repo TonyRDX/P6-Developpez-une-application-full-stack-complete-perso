@@ -2,6 +2,7 @@ package com.openclassrooms.mddapi.infrastructure.controller;
 
 import java.time.Instant;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openclassrooms.mddapi.application.service.CommentService;
 import com.openclassrooms.mddapi.infrastructure.dto.AddCommentRequest;
 import com.openclassrooms.mddapi.infrastructure.dto.CommentResponse;
-import com.openclassrooms.mddapi.infrastructure.persistence.Comment;
-import com.openclassrooms.mddapi.infrastructure.persistence.User;
-import com.openclassrooms.mddapi.infrastructure.repository.CommentRepository;
-import com.openclassrooms.mddapi.infrastructure.repository.UserRepository;
+import com.openclassrooms.mddapi.infrastructure.featuregroup.post.handler.GetRecentHandler;
+import com.openclassrooms.mddapi.infrastructure.persistence.entity.Comment;
+import com.openclassrooms.mddapi.infrastructure.persistence.entity.User;
+import com.openclassrooms.mddapi.infrastructure.persistence.repository.CommentRepository;
+import com.openclassrooms.mddapi.infrastructure.persistence.repository.PostRepository;
+import com.openclassrooms.mddapi.infrastructure.persistence.repository.UserRepository;
 import com.openclassrooms.mddapi.infrastructure.service.ReactiveUserContext;
 
 import reactor.core.publisher.Flux;

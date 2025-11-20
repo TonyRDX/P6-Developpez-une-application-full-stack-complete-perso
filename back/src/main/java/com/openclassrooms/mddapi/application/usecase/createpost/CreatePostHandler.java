@@ -1,18 +1,29 @@
 package com.openclassrooms.mddapi.application.usecase.createpost;
 
-// import org.reactivestreams.Publisher;
+import java.time.Instant;
 
-// import com.openclassrooms.mddapi.application.CreatePostCommand;
-// import com.openclassrooms.mddapi.domain.model.Post;
-// import com.openclassrooms.mddapi.shared.application.CommandHandler;
-// import com.openclassrooms.mddapi.shared.application.unitofwork.BasicUnitOfWork;
+import com.openclassrooms.mddapi.domain.model.Post;
+import com.openclassrooms.mddapi.shared.application.CommandHandler;
+import com.openclassrooms.mddapi.shared.application.unitofwork.UseCaseUnitOfWork;
 
-// public class CreatePostHandler implements  CommandHandler<CreatePostCommand> {
+public class CreatePostHandler implements CommandHandler<CreatePostCommand> {
+    private final UseCaseUnitOfWork<CreatePostCommand> uow;
 
-//     @Override
-//     public Publisher<?> handle(CreatePostCommand message) {
-//         // TODO Auto-generated method stub
-//         throw new UnsupportedOperationException("Unimplemented method 'handle'");
-//     }
-    
-// }
+    public CreatePostHandler(
+        UseCaseUnitOfWork<CreatePostCommand> uow
+    ) {
+        this.uow = uow;
+    }
+
+    public void handle(CreatePostCommand command) {
+        // consider infrastructure manage entity relational for now
+
+        Post post = new Post();
+        post.setTitle(command.title());
+        post.setContent(command.content());
+        post.setCreatedAt(Instant.now());
+
+        uow.<Post>register(post);
+        uow.complete();
+    }
+}

@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.infrastructure.persistence;
+package com.openclassrooms.mddapi.infrastructure.persistence.entity;
 
 import java.time.Instant;
 
@@ -8,23 +8,19 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import com.openclassrooms.mddapi.shared.domain.model.Entity;
 
-@Table("posts")
-public class Post implements Entity {
+@Table("topics")
+public class Topic implements Entity {
 
     @Id
     private Integer id;
-
-    @Column("topic_id")
-    private Integer topicId;
-
-    @Column("author_id")
-    private Integer authorId;
 
     private String title;
     private String content;
 
     @Column("created_at")
     private Instant createdAt;
+    @Column("user_id")
+    private Integer userId;
 
     public Integer getId() {
         return id;
@@ -32,22 +28,6 @@ public class Post implements Entity {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getTopicId() {
-        return topicId;
-    }
-
-    public void setTopicId(Integer topicId) {
-        this.topicId = topicId;
-    }
-
-    public Integer getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(Integer authorId) {
-        this.authorId = authorId;
     }
 
     public String getTitle() {
@@ -74,4 +54,11 @@ public class Post implements Entity {
         this.createdAt = createdAt;
     }
 
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public boolean isSubscribed() {
+        return (this.userId != null);
+    }
 }

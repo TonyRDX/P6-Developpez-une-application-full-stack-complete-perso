@@ -1,10 +1,10 @@
-package com.openclassrooms.mddapi.infrastructure.repository;
+package com.openclassrooms.mddapi.infrastructure.persistence.repository;
 
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.openclassrooms.mddapi.infrastructure.persistence.Topic;
+import com.openclassrooms.mddapi.infrastructure.persistence.entity.Topic;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

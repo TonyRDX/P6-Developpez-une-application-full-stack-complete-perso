@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.infrastructure.persistence;
+package com.openclassrooms.mddapi.infrastructure.persistence.entity;
 
 import java.time.Instant;
 
@@ -8,20 +8,17 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import com.openclassrooms.mddapi.shared.domain.model.Entity;
 
-@Table("comments")
-public class Comment implements Entity {
+
+@Table("users")
+public class User implements Entity {
 
     @Id
     private Integer id;
 
-    private String content;
-
-    @Column("user_id")
-    private Integer userId;
-
-    @Column("post_id")
-    private Integer postId;
-
+    private String email;
+    private String name;
+    private String password;
+    
     @Column("created_at")
     private Instant createdAt;
 
@@ -33,28 +30,28 @@ public class Comment implements Entity {
         this.id = id;
     }
 
-    public String getContent() {
-        return content;
+    public String getEmail() {
+        return email;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public String getName() {
+        return name;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Integer getPostId() {
-        return postId;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPostId(Integer postId) {
-        this.postId = postId;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Instant getCreatedAt() {

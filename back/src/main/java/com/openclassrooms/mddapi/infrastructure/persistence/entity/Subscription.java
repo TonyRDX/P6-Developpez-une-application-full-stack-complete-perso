@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.infrastructure.persistence;
+package com.openclassrooms.mddapi.infrastructure.persistence.entity;
 
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;

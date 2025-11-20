@@ -4,10 +4,10 @@ import java.time.Instant;
 
 import org.springframework.stereotype.Service;
 
-import com.openclassrooms.mddapi.infrastructure.persistence.Subscription;
-import com.openclassrooms.mddapi.infrastructure.persistence.Topic;
-import com.openclassrooms.mddapi.infrastructure.repository.SubscriptionRepository;
-import com.openclassrooms.mddapi.infrastructure.repository.TopicRepository;
+import com.openclassrooms.mddapi.infrastructure.persistence.entity.Subscription;
+import com.openclassrooms.mddapi.infrastructure.persistence.entity.Topic;
+import com.openclassrooms.mddapi.infrastructure.persistence.repository.SubscriptionRepository;
+import com.openclassrooms.mddapi.infrastructure.persistence.repository.TopicRepository;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

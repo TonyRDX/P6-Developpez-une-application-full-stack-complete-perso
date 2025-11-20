@@ -12,8 +12,8 @@ import com.openclassrooms.mddapi.infrastructure.dto.AuthResponse;
 import com.openclassrooms.mddapi.infrastructure.dto.LoginRequest;
 import com.openclassrooms.mddapi.infrastructure.dto.SubsribeUserRequest;
 import com.openclassrooms.mddapi.infrastructure.dto.UserResponse;
-import com.openclassrooms.mddapi.infrastructure.persistence.User;
-import com.openclassrooms.mddapi.infrastructure.repository.UserRepository;
+import com.openclassrooms.mddapi.infrastructure.persistence.entity.User;
+import com.openclassrooms.mddapi.infrastructure.persistence.repository.UserRepository;
 import com.openclassrooms.mddapi.infrastructure.service.JwtService;
 
 import reactor.core.publisher.Mono;

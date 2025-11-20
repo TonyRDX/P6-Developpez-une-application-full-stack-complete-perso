@@ -6,12 +6,12 @@ import com.openclassrooms.mddapi.application.usecase.getfeed.GetFeedQuery;
 import com.openclassrooms.mddapi.infrastructure.dto.SinglePostFeed;
 import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostPublisher;
 import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostSse;
-import com.openclassrooms.mddapi.infrastructure.persistence.Post;
-import com.openclassrooms.mddapi.infrastructure.persistence.Topic;
-import com.openclassrooms.mddapi.infrastructure.persistence.User;
-import com.openclassrooms.mddapi.infrastructure.repository.PostRepository;
-import com.openclassrooms.mddapi.infrastructure.repository.TopicRepository;
-import com.openclassrooms.mddapi.infrastructure.repository.UserRepository;
+import com.openclassrooms.mddapi.infrastructure.persistence.entity.PostPersistence;
+import com.openclassrooms.mddapi.infrastructure.persistence.entity.Topic;
+import com.openclassrooms.mddapi.infrastructure.persistence.entity.User;
+import com.openclassrooms.mddapi.infrastructure.persistence.repository.PostRepository;
+import com.openclassrooms.mddapi.infrastructure.persistence.repository.TopicRepository;
+import com.openclassrooms.mddapi.infrastructure.persistence.repository.UserRepository;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -67,7 +67,7 @@ public class FeedService {
     }
 
     private Mono<SinglePostFeed> toSinglePostFeed(PostSse el) {
-        Mono<Post> postMono = postRepository.findById(el.id());
+        Mono<PostPersistence> postMono = postRepository.findById(el.id());
         Mono<User> userMono = userRepository.findById(el.author_id());
         
         Mono<SinglePostFeed> result = postMono.zipWith(userMono, (post, user) ->
@@ -77,12 +77,12 @@ public class FeedService {
         return result;
     }
 
-    private Mono<SinglePostFeed> toSinglePostFeed(Post post) {
+    private Mono<SinglePostFeed> toSinglePostFeed(PostPersistence post) {
         return userRepository.findById(post.getAuthorId())
             .map((user) -> this.toSinglePostFeed(post, user));
     }
 
-    private SinglePostFeed toSinglePostFeed(Post post, User user) {
+    private SinglePostFeed toSinglePostFeed(PostPersistence post, User user) {
         return new SinglePostFeed(
                 post.getId(), 
                 post.getTitle(), 
