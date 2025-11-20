@@ -17,3 +17,21 @@ TODO :
 
 Backlog : 
 - dependency tool
+
+# Architecture flow example
+
+### Basic flow example :
+API --> Controller --> InfraHandler --> UseCaseHandler --> Domain ↓
+API <-- Controller <-- Persistence <--                       
+
+### Detailed flow example
+
+[Desc flow]
+API --> Controller --> IMessageHandler<Msg, Response> (Infra: SetupHandler) 
+--> UseCaseHandler --> IUoW 
+[Asc flow]
+UseCaseHandler --> UoW --> Repository --> Mapper
+[Desc flow]
+--> UseCaseHandler --> Domain
+[Asc flow]
+UseCaseHandler --> SetupHandler / UoW --> Controller --> API 
