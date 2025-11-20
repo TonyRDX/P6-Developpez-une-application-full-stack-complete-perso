@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openclassrooms.mddapi.core.application.usecase.createpost.CreatePostCommand;
 import com.openclassrooms.mddapi.core.application.usecase.getpost.GetPostByIdQuery;
 import com.openclassrooms.mddapi.core.infrastructure.featuregroup.post.dto.AddPostRequest;
-import com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic.service.TopicService;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.PostPersistence;
 import com.openclassrooms.mddapi.shared.infrastructure.MessageHandler;
 import com.openclassrooms.mddapi.shared.infrastructure.service.ReactiveUserContext;
@@ -27,7 +26,6 @@ public class PostController {
     private final MessageHandler<CreatePostCommand, Mono<PostPersistence>> createPostHandler;
 
     public PostController(
-        TopicService topicService,
         MessageHandler<GetPostByIdQuery, Mono<PostPersistence>> postQueryHandler,
         MessageHandler<CreatePostCommand, Mono<PostPersistence>> createPostHandler
     ) {

@@ -1,6 +1,5 @@
 package com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic.dto.AddTopicRequest;
 import com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic.dto.SubscribeTopicRequest;
 import com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic.dto.UnsubscribeTopicRequest;
-import com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic.service.TopicService;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.Subscription;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.TopicPersistence;
 import com.openclassrooms.mddapi.shared.infrastructure.MessageHandler;
 import com.openclassrooms.mddapi.shared.infrastructure.dto.EmptyDto;
-import com.openclassrooms.mddapi.shared.infrastructure.service.ReactiveUserContext;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

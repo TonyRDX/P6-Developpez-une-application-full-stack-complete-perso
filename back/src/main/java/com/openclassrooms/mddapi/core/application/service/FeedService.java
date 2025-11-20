@@ -6,7 +6,6 @@ import com.openclassrooms.mddapi.core.application.usecase.getfeed.GetFeedQuery;
 import com.openclassrooms.mddapi.core.infrastructure.dto.SinglePostFeed;
 import com.openclassrooms.mddapi.core.infrastructure.featuregroup.post.PostPublisher;
 import com.openclassrooms.mddapi.core.infrastructure.featuregroup.post.PostSse;
-import com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic.service.TopicService;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.PostPersistence;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.TopicPersistence;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.User;
@@ -29,8 +28,7 @@ public class FeedService {
         PostRepository postRepository, 
         UserRepository userRepository, 
         TopicRepository topicRepository, 
-        UserService userService,
-        TopicService topicService
+        UserService userService
     ) {
         this.postPublisher = postPublisher;
         this.postRepository = postRepository;

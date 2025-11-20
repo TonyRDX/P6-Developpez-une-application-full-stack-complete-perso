@@ -2,6 +2,7 @@ package com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic.handler
 
 import org.springframework.stereotype.Component;
 
+import com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic.dto.UnsubscribeTopicRequest;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.Subscription;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.repository.SubscriptionRepository;
 import com.openclassrooms.mddapi.shared.infrastructure.MessageHandler;
@@ -10,7 +11,7 @@ import com.openclassrooms.mddapi.shared.infrastructure.service.ReactiveUserConte
 import reactor.core.publisher.Mono;
 
 @Component
-public class UnsubscribeTopicHandler implements MessageHandler<Integer, Mono<Subscription>> {
+public class UnsubscribeTopicHandler implements MessageHandler<UnsubscribeTopicRequest, Mono<Subscription>> {
     private final SubscriptionRepository subscriptionRepository;
     private final ReactiveUserContext userContext;
 
@@ -23,9 +24,9 @@ public class UnsubscribeTopicHandler implements MessageHandler<Integer, Mono<Sub
     }
 
     @Override
-    public Mono<Subscription> handle(Integer topicId) {
+    public Mono<Subscription> handle(UnsubscribeTopicRequest msg) {
         return userContext.getUserId().flatMap(userId -> 
-            subscriptionRepository.deleteByTopicIdAndUserId(topicId, userId)
+            subscriptionRepository.deleteByTopicIdAndUserId(msg.topicId(), userId)
         );
     }
 }
