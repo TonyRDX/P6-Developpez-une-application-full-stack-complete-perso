@@ -12,6 +12,7 @@ public class GetPostByIdQueryHandler implements QueryHandler<GetPostByIdQuery> {
         this.uow = uow;
     }
 
+    @Override
     public BasicUseCaseResponse handle(GetPostByIdQuery query) {
         return new BasicUseCaseResponse(uow.load(PostPersistence.class, query.id()));
     }

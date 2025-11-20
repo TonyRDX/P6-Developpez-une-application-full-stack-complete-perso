@@ -2,7 +2,6 @@ package com.openclassrooms.mddapi.infrastructure.featuregroup.post.handler;
 
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import com.openclassrooms.mddapi.domain.model.Post;

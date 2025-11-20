@@ -19,8 +19,6 @@ import reactor.core.publisher.Mono;
 @Service
 public class FeedService {
     private final PostPublisher postPublisher;
-    private final UserService userService;
-    private final TopicService topicService;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final TopicRepository topicRepository;
@@ -34,8 +32,6 @@ public class FeedService {
         TopicService topicService
     ) {
         this.postPublisher = postPublisher;
-        this.userService = userService;
-        this.topicService = topicService;
         this.postRepository = postRepository;
         this.topicRepository = topicRepository;
         this.userRepository = userRepository;

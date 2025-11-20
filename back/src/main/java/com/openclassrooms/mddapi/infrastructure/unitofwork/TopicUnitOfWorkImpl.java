@@ -11,19 +11,16 @@ public class TopicUnitOfWorkImpl implements BasicUnitOfWork<Topic> {
 
     @Override
     public void register(Topic entity) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'register'");
     }
 
     @Override
     public Topic load(Class<Topic> type, Integer id) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'load'");
     }
 
     @Override
     public Publisher<Topic> completeAndReturn() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'completeAndReturn'");
     }
     // @Autowired private TopicRepository topicRepository;

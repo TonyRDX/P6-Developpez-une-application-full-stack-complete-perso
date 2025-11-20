@@ -15,6 +15,7 @@ public class CreatePostHandler implements CommandHandler<CreatePostCommand> {
         this.uow = uow;
     }
 
+    @Override
     public void handle(CreatePostCommand command) {
         // consider infrastructure manage entity relational for now
 

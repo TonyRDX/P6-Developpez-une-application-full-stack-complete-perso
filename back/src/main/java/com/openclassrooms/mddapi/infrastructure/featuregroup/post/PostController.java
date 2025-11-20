@@ -14,7 +14,6 @@ import com.openclassrooms.mddapi.application.usecase.createpost.CreatePostComman
 import com.openclassrooms.mddapi.application.usecase.getpost.GetPostByIdQuery;
 import com.openclassrooms.mddapi.infrastructure.dto.AddPostRequest;
 import com.openclassrooms.mddapi.infrastructure.persistence.entity.PostPersistence;
-import com.openclassrooms.mddapi.infrastructure.persistence.entity.Topic;
 import com.openclassrooms.mddapi.infrastructure.service.ReactiveUserContext;
 import com.openclassrooms.mddapi.shared.infrastructure.MessageHandler;
 
@@ -24,7 +23,6 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/api/posts")
 @CrossOrigin(origins = "http://localhost:4200") 
 public class PostController {
-    private final TopicService topicService;
     private final MessageHandler<GetPostByIdQuery, PostPersistence> postQueryHandler;
     private final MessageHandler<CreatePostCommand, PostPersistence> createPostHandler;
 
@@ -34,7 +32,6 @@ public class PostController {
         MessageHandler<CreatePostCommand, PostPersistence> createPostHandler
     ) {
         this.postQueryHandler = postQueryHandler;
-        this.topicService = topicService;
         this.createPostHandler = createPostHandler;
     }
 
@@ -44,14 +41,8 @@ public class PostController {
     @PostMapping
     public Mono<PostPersistence> post(@RequestBody AddPostRequest request) {
         Mono<Integer> userIdMono = userContext.getUserId();
-        Mono<Topic> topicMono = topicService.getOne(request.topic_id())
-            .switchIfEmpty(Mono.error(new RuntimeException("Topic not found")));
 
-        return userIdMono.zipWith(topicMono) // combiner les flux
-            .flatMap(tuple -> {              // executer asynchrone
-                Integer userId = tuple.getT1();
-                Topic topic = tuple.getT2();
-
+        return userIdMono.flatMap(userId -> {
                 CreatePostCommand cmd = new CreatePostCommand(
                     request.title(), 
                     request.content(), 

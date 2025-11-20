@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openclassrooms.mddapi.application.service.FeedService;
 import com.openclassrooms.mddapi.application.usecase.getfeed.GetFeedQuery;
 import com.openclassrooms.mddapi.infrastructure.dto.SinglePostFeed;
-import com.openclassrooms.mddapi.infrastructure.persistence.entity.PostPersistence;
 import com.openclassrooms.mddapi.infrastructure.service.ReactiveUserContext;
 
 import reactor.core.publisher.Flux;
@@ -50,17 +49,6 @@ public class FeedController {
                 );
                 return this.feedService.getFeed(getFeedQuery);
             });
-    }
-
-    private SinglePostFeed formatPost(PostPersistence post) {
-        return new SinglePostFeed(
-            post.getId(),
-            post.getTitle(),
-            post.getContent(),
-            post.getAuthorId().toString(),
-            post.getCreatedAt(),
-            post.getTopicId()
-        );
     }
 
     @GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)

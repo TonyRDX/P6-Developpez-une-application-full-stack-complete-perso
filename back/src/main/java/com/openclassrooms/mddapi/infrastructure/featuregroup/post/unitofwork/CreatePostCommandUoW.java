@@ -2,7 +2,6 @@ package com.openclassrooms.mddapi.infrastructure.featuregroup.post.unitofwork;
 
 import com.openclassrooms.mddapi.application.usecase.createpost.CreatePostCommand;
 import com.openclassrooms.mddapi.domain.model.Post;
-import com.openclassrooms.mddapi.domain.model.Topic;
 import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostPublisher;
 import com.openclassrooms.mddapi.infrastructure.featuregroup.post.PostSse;
 import com.openclassrooms.mddapi.infrastructure.featuregroup.post.mapper.PostMapper;
