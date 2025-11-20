@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openclassrooms.mddapi.core.application.service.TopicService;
 import com.openclassrooms.mddapi.core.application.usecase.createpost.CreatePostCommand;
 import com.openclassrooms.mddapi.core.application.usecase.getpost.GetPostByIdQuery;
 import com.openclassrooms.mddapi.core.infrastructure.featuregroup.post.dto.AddPostRequest;
+import com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic.service.TopicService;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.PostPersistence;
 import com.openclassrooms.mddapi.shared.infrastructure.MessageHandler;
 import com.openclassrooms.mddapi.shared.infrastructure.service.ReactiveUserContext;
@@ -23,13 +23,13 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/api/posts")
 @CrossOrigin(origins = "http://localhost:4200") 
 public class PostController {
-    private final MessageHandler<GetPostByIdQuery, PostPersistence> postQueryHandler;
-    private final MessageHandler<CreatePostCommand, PostPersistence> createPostHandler;
+    private final MessageHandler<GetPostByIdQuery, Mono<PostPersistence>> postQueryHandler;
+    private final MessageHandler<CreatePostCommand, Mono<PostPersistence>> createPostHandler;
 
     public PostController(
         TopicService topicService,
-        MessageHandler<GetPostByIdQuery, PostPersistence> postQueryHandler,
-        MessageHandler<CreatePostCommand, PostPersistence> createPostHandler
+        MessageHandler<GetPostByIdQuery, Mono<PostPersistence>> postQueryHandler,
+        MessageHandler<CreatePostCommand, Mono<PostPersistence>> createPostHandler
     ) {
         this.postQueryHandler = postQueryHandler;
         this.createPostHandler = createPostHandler;

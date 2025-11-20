@@ -9,7 +9,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import com.openclassrooms.mddapi.shared.domain.model.Entity;
 
 @Table("topics")
-public class Topic implements Entity {
+public class TopicPersistence implements Entity {
 
     @Id
     private Integer id;

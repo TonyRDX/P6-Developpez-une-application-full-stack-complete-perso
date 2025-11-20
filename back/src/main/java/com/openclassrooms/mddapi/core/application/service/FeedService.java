@@ -6,8 +6,9 @@ import com.openclassrooms.mddapi.core.application.usecase.getfeed.GetFeedQuery;
 import com.openclassrooms.mddapi.core.infrastructure.dto.SinglePostFeed;
 import com.openclassrooms.mddapi.core.infrastructure.featuregroup.post.PostPublisher;
 import com.openclassrooms.mddapi.core.infrastructure.featuregroup.post.PostSse;
+import com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic.service.TopicService;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.PostPersistence;
-import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.Topic;
+import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.TopicPersistence;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.User;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.repository.PostRepository;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.repository.TopicRepository;
@@ -39,7 +40,7 @@ public class FeedService {
 
     public Flux<SinglePostFeed> getFeed(GetFeedQuery getFeedQuery) {
         return topicRepository.findSubscribedByUserId(getFeedQuery.userId())
-            .map(Topic::getId)
+            .map(TopicPersistence::getId)
             .collectList()
             .flatMapMany(ids -> 
                 ids.isEmpty()
@@ -51,7 +52,7 @@ public class FeedService {
 
     public Flux<SinglePostFeed> liveForUser(Integer userId) {
         return topicRepository.findSubscribedByUserId(userId)
-                .map(Topic::getId)
+                .map(TopicPersistence::getId)
                 .collectList()
                 .flatMapMany(topics ->
                         postPublisher.flux()

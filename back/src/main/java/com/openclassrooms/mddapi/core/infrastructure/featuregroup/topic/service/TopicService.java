@@ -1,11 +1,9 @@
-package com.openclassrooms.mddapi.core.application.service;
-
-import java.time.Instant;
+package com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic.service;
 
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.Subscription;
-import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.Topic;
+import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.TopicPersistence;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.repository.SubscriptionRepository;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.repository.TopicRepository;
 
@@ -26,17 +24,12 @@ public class TopicService {
         this.subscriptionRepository = subscriptionRepository;
     }
 
-    public Mono<Topic> getOne(Integer id) {
+    public Mono<TopicPersistence> getOne(Integer id) {
         return topicRepository.findById(id);
     }
 
-    public Flux<Topic> getAll(Integer userId) {
+    public Flux<TopicPersistence> getAll(Integer userId) {
         return topicRepository.findAllWithUserId(userId);
-    }
-
-    public Mono<Topic> create(Topic topic) {
-        topic.setCreatedAt(Instant.now());
-        return topicRepository.save(topic);
     }
 
     public Mono<Subscription> subscribe(Integer topicId, Integer userId) {

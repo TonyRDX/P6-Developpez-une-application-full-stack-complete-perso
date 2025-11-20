@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.core.infrastructure.controller;
+package com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openclassrooms.mddapi.core.application.service.TopicService;
-import com.openclassrooms.mddapi.core.infrastructure.dto.AddTopicRequest;
-import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.Topic;
+import com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic.dro.AddTopicRequest;
+import com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic.service.TopicService;
+import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.TopicPersistence;
+import com.openclassrooms.mddapi.shared.infrastructure.MessageHandler;
 import com.openclassrooms.mddapi.shared.infrastructure.service.ReactiveUserContext;
 
 import reactor.core.publisher.Flux;
@@ -23,26 +24,27 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/api/topics")
 @CrossOrigin(origins = "http://localhost:4200") 
 public class TopicController {
-
     private final TopicService topicService;
+    private final MessageHandler<AddTopicRequest, Mono<TopicPersistence>> addTopicHandler;
+    // private final MessageHandler<null, Flux<TopicPersistence>> getAllTopicHandler;
     @Autowired
     private ReactiveUserContext userContext;
 
-    public TopicController(TopicService topicService) {
+    public TopicController(
+        TopicService topicService,
+        MessageHandler<AddTopicRequest, Mono<TopicPersistence>> addTopicHandler
+    ) {
         this.topicService = topicService;
+        this.addTopicHandler = addTopicHandler;
     }
 
     @PostMapping
-    public Mono<Topic> post(@RequestBody AddTopicRequest request) {
-        Topic topic = new Topic();
-        topic.setTitle(request.title());
-        topic.setContent(request.content());
-
-        return topicService.create(topic);
+    public Mono<TopicPersistence> post(@RequestBody AddTopicRequest request) {
+        return this.addTopicHandler.handle(request);
     }
 
     @GetMapping
-    public Flux<Topic> get() {
+    public Flux<TopicPersistence> get() {
         return userContext.getUserId().flatMapMany(userId -> topicService.getAll(userId));
     }
 

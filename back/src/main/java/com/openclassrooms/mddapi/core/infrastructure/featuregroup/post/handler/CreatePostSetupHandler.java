@@ -16,7 +16,7 @@ import com.openclassrooms.mddapi.shared.infrastructure.MessageHandler;
 import reactor.core.publisher.Mono;
 
 @Component
-public class CreatePostSetupHandler implements MessageHandler<CreatePostCommand, PostPersistence> {
+public class CreatePostSetupHandler implements MessageHandler<CreatePostCommand, Mono<PostPersistence>> {
     private final PostRepository postRepository;
     private final TopicRepository topicRepository;
     private final UserRepository userRepository;

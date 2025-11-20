@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
 @Component
-public class GetByIdHandler implements MessageHandler<GetPostByIdQuery, PostPersistence>{
+public class GetByIdHandler implements MessageHandler<GetPostByIdQuery, Mono<PostPersistence>>{
     private final PostRepository postRepository;
 
     public GetByIdHandler(
