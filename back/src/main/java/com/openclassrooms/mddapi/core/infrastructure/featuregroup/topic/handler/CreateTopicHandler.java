@@ -4,7 +4,7 @@ import java.time.Instant;
 
 import org.springframework.stereotype.Component;
 
-import com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic.dro.AddTopicRequest;
+import com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic.dto.AddTopicRequest;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.TopicPersistence;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.repository.TopicRepository;
 import com.openclassrooms.mddapi.shared.infrastructure.MessageHandler;

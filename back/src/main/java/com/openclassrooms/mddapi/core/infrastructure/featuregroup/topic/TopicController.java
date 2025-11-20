@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic.dro.AddTopicRequest;
+import com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic.dto.AddTopicRequest;
+import com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic.dto.SubscribeTopicRequest;
+import com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic.dto.UnsubscribeTopicRequest;
 import com.openclassrooms.mddapi.core.infrastructure.featuregroup.topic.service.TopicService;
+import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.Subscription;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.TopicPersistence;
 import com.openclassrooms.mddapi.shared.infrastructure.MessageHandler;
+import com.openclassrooms.mddapi.shared.infrastructure.dto.EmptyDto;
 import com.openclassrooms.mddapi.shared.infrastructure.service.ReactiveUserContext;
 
 import reactor.core.publisher.Flux;
@@ -24,18 +28,21 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/api/topics")
 @CrossOrigin(origins = "http://localhost:4200") 
 public class TopicController {
-    private final TopicService topicService;
     private final MessageHandler<AddTopicRequest, Mono<TopicPersistence>> addTopicHandler;
-    // private final MessageHandler<null, Flux<TopicPersistence>> getAllTopicHandler;
-    @Autowired
-    private ReactiveUserContext userContext;
+    private final MessageHandler<EmptyDto, Flux<TopicPersistence>> getAllTopicHandler;
+    private final MessageHandler<SubscribeTopicRequest, Mono<Subscription>> subscribeTopicHandler;
+    private final MessageHandler<UnsubscribeTopicRequest, Mono<Subscription>> unsubscribeTopicHandler;
 
     public TopicController(
-        TopicService topicService,
-        MessageHandler<AddTopicRequest, Mono<TopicPersistence>> addTopicHandler
+        MessageHandler<AddTopicRequest, Mono<TopicPersistence>> addTopicHandler,
+        MessageHandler<EmptyDto, Flux<TopicPersistence>> getAllTopicHandler,
+        MessageHandler<SubscribeTopicRequest, Mono<Subscription>> subscribeTopicHandler,
+        MessageHandler<UnsubscribeTopicRequest, Mono<Subscription>> unsubscribeTopicHandler
     ) {
-        this.topicService = topicService;
         this.addTopicHandler = addTopicHandler;
+        this.getAllTopicHandler = getAllTopicHandler;
+        this.subscribeTopicHandler = subscribeTopicHandler;
+        this.unsubscribeTopicHandler = unsubscribeTopicHandler;
     }
 
     @PostMapping
@@ -45,20 +52,16 @@ public class TopicController {
 
     @GetMapping
     public Flux<TopicPersistence> get() {
-        return userContext.getUserId().flatMapMany(userId -> topicService.getAll(userId));
+        return getAllTopicHandler.handle(new EmptyDto());
     }
 
     @PutMapping("/{topicId}/subscription")
-    public Mono<Object> subscribe(@PathVariable Integer topicId) {
-        return userContext.getUserId().flatMap(userId -> 
-            topicService.subscribe(topicId, userId)
-        );
+    public Mono<Subscription> subscribe(@PathVariable Integer topicId) {
+        return subscribeTopicHandler.handle(new SubscribeTopicRequest(topicId));
     }
 
     @DeleteMapping("/{topicId}/subscription")
-    public Mono<Object> unsubscribe(@PathVariable Integer topicId) {
-        return userContext.getUserId().flatMap(userId -> 
-            topicService.unsubscribe(topicId, userId)
-        );
+    public Mono<Subscription> unsubscribe(@PathVariable Integer topicId) {
+        return unsubscribeTopicHandler.handle(new UnsubscribeTopicRequest(topicId));
     }
 }
