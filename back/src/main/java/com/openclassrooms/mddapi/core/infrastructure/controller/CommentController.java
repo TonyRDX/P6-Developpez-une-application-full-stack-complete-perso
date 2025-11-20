@@ -17,7 +17,7 @@ import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.Comment;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.User;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.repository.CommentRepository;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.repository.UserRepository;
-import com.openclassrooms.mddapi.core.infrastructure.service.ReactiveUserContext;
+import com.openclassrooms.mddapi.shared.infrastructure.service.ReactiveUserContext;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

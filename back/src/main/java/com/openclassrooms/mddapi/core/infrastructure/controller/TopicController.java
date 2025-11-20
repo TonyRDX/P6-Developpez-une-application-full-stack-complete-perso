@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openclassrooms.mddapi.core.application.service.TopicService;
 import com.openclassrooms.mddapi.core.infrastructure.dto.AddTopicRequest;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.Topic;
-import com.openclassrooms.mddapi.core.infrastructure.service.ReactiveUserContext;
+import com.openclassrooms.mddapi.shared.infrastructure.service.ReactiveUserContext;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

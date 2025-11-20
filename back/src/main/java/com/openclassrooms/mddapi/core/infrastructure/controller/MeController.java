@@ -12,7 +12,7 @@ import com.openclassrooms.mddapi.core.infrastructure.dto.MePatch;
 import com.openclassrooms.mddapi.core.infrastructure.dto.UserResponse;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.User;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.repository.UserRepository;
-import com.openclassrooms.mddapi.core.infrastructure.service.ReactiveUserContext;
+import com.openclassrooms.mddapi.shared.infrastructure.service.ReactiveUserContext;
 
 import reactor.core.publisher.Mono;
 

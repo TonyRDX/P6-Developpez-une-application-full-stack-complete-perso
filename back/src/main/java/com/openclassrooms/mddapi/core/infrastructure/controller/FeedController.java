@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openclassrooms.mddapi.core.application.service.FeedService;
 import com.openclassrooms.mddapi.core.application.usecase.getfeed.GetFeedQuery;
 import com.openclassrooms.mddapi.core.infrastructure.dto.SinglePostFeed;
-import com.openclassrooms.mddapi.core.infrastructure.service.ReactiveUserContext;
+import com.openclassrooms.mddapi.shared.infrastructure.service.ReactiveUserContext;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

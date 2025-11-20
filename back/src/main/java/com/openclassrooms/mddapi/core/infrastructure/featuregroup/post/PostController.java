@@ -14,8 +14,8 @@ import com.openclassrooms.mddapi.core.application.usecase.createpost.CreatePostC
 import com.openclassrooms.mddapi.core.application.usecase.getpost.GetPostByIdQuery;
 import com.openclassrooms.mddapi.core.infrastructure.dto.AddPostRequest;
 import com.openclassrooms.mddapi.core.infrastructure.persistence.entity.PostPersistence;
-import com.openclassrooms.mddapi.core.infrastructure.service.ReactiveUserContext;
 import com.openclassrooms.mddapi.shared.infrastructure.MessageHandler;
+import com.openclassrooms.mddapi.shared.infrastructure.service.ReactiveUserContext;
 
 import reactor.core.publisher.Mono;
 

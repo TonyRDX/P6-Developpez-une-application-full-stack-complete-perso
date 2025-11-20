@@ -1,4 +1,4 @@
-package com.openclassrooms.mddapi.core.infrastructure.service;
+package com.openclassrooms.mddapi.shared.infrastructure.service;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
