@@ -13,7 +13,8 @@ import reactor.core.publisher.Mono;
 public class PostUnitOfWork implements BasicUnitOfWork<PostPersistence> {
     private UoWContextImpl ctx;
 
-    public PostPersistence load(Class type, Integer id) {
+    @Override
+    public PostPersistence load(Class<PostPersistence> type, Integer id) {
         return ctx.postRepo().get(id);
     }
 
