@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 
 import reactor.core.publisher.Mono;
 
+/**
+ * Used across the Spring framework with DI, to gather session user information.
+ */
 @Component
 public class ReactiveUserContext {
 

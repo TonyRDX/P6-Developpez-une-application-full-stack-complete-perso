@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.shared.infrastructure.unitofwork;
 
-public interface UnitOfWorkFactory<T> {
-    
-}
+/**
+ * Can be used to create properly a Unit of Work, that cannot be injected by Spring.
+ */
+public interface UnitOfWorkFactory<T> {}
