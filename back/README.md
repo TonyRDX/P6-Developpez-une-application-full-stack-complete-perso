@@ -1,6 +1,25 @@
-mvn clean spring-boot:run
+# Run the application
 
-# Horizontal slice - tech-centric
+## Installation
+Use JDK 17 to run the project. Dependencies should be automatically managed when running or building.
+Spring Boot 3.3 is used in the project.
+
+## Development server
+`mvn clean spring-boot:run`
+Automatically apply most of code changes.
+/!\ Database may drop at each code change or server start. Please check Flyway config if does not match your needs.
+
+## Postman
+Postman ressources may be found at the root project, with test scenarion example.
+It has been used to smoke test + seed database, to detect early the common API regression.
+
+## Build
+`mvn clean compile`
+
+
+# Backend architecture
+
+## Horizontal slice - tech-centric
 
 - **Infrastructure** - technical concerns
     - Controller
@@ -10,7 +29,7 @@ mvn clean spring-boot:run
     - Use cases (messages + handlers)
 - **Domain** - fully isolated
 
-# Vertical slice - business-centric
+## Vertical slice - business-centric
 There are currently 2 top-level modules in the app :
 - **shared** : contains cross-cutting concerns, such as authentication or generic interfaces
 - **core** : contains feature-based code, usually grouped around business use cases
@@ -21,7 +40,7 @@ Combining with the horizontal slice, the core module contains additional interna
     - **The controller defines** its interaction point, and all supporting infrastructure code (DTOs, handlers, mappers, etc.) is grouped beside it.
 - **In core application layer**, most application use cases are implemented there. Each use case requires a message and a handler. 
 
-# Feature Maturity Level
+## Feature Maturity Level
 
 These levels describe how much architectural structure should be applied when building a feature.
 
@@ -38,17 +57,15 @@ Controller --> Handler / Unit of Work --> Application --> Domain
 Purpose: enforce business invariants, improve testability, scalability, and maintainability.
 
 
-# Architecture diagram
+## Architecture diagram
 
 ![texte alternatif](docs/back%20diagram%20architecture.png)
 
 
 # Misc
 
-TODO : 
-- clear dependencies (I -> A -> D)
-- default entity proxy throwing error
-- example of Appli service self wrapping in a flux
-
-Backlog : 
-- dependency tool
+Tech backlog : 
+- A dependency tool to enforce or analyze them
+- List all features and enhance implementation on some of them 
+    (prefer a living documentation style)
+- Consider smoke test and database seed inside project instead of Postman
